@@ -41,12 +41,13 @@ class MOETableGenerator {
 
     fclose($moeFile);
 
+
     $rollReturnTables = '';
 
     if ($month === 'M') {
+      $cutoffDate = '2015-03-01';
       $rollReturnTables .= M3Table::generate($footer);
-      //TODO:
-      // $rollReturnTables .= M4Table::generate($footer);
+      $rollReturnTables .= M4Table::generate($cutoffDate, $students);
       // $rollReturnTables .= M6Table::generate($students);
       // $rollReturnTables .= AuditTables::generate($somedata)
     } else if ($month === 'J') {
