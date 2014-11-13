@@ -12,7 +12,7 @@ class MOETableGenerator {
    * @param  String $moeFilePath Path to a .moe file 
    * @return String Html
    */
-  public static function generateTables($moeFilePath) {
+  public static function generateTables($schoolName, $moeFilePath) {
 
     assert(is_file($moeFilePath), 'generateTables called with invalid file path');
 
@@ -41,13 +41,16 @@ class MOETableGenerator {
 
     fclose($moeFile);
 
+    $smsName = $header[0];
+    $smsVersion = $header[1];
+    $schoolNumber = $header[4];
 
     $rollReturnTables = '';
 
     if ($month === 'M') {
       $cutoffDate = '2015-03-01';
-      $rollReturnTables .= M3Table::generate($footer);
-      $rollReturnTables .= M4Table::generate($cutoffDate, $students);
+      $rollReturnTables .= M3Table::generate($schoolName, $schoolNumber, $footer);
+      $rollReturnTables .= M4Table::generate($smsName, $smsVersion, $schoolName, $schoolNumber, $cutoffDate, $students);
       // $rollReturnTables .= M6Table::generate($students);
       // $rollReturnTables .= AuditTables::generate($somedata)
     } else if ($month === 'J') {

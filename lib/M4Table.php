@@ -13,7 +13,7 @@ class M4Table {
    * @param  Array  $students
    * @return String
    */
-  public function generate($cutoff, $students) {
+  public function generate($smsName, $smsVersion, $schoolName, $schoolNumber, $cutoff, $students) {
 
     $rows = array();
 
@@ -122,6 +122,14 @@ class M4Table {
     }
 
     $highestLevelMaori['totals']['total'] = array_sum($highestLevelMaori['totals']);
+    $highestLevelMaori['smsName'] = $smsName;
+    $highestLevelMaori['smsVersion'] = $smsVersion;
+    $highestLevelMaori['schoolName'] = $schoolName;
+    $highestLevelMaori['schoolNumber'] = $schoolNumber;
+    $nzdt = new DateTimeZone('Pacific/Auckland');
+    $now = new DateTime('now', $nzdt);
+    $highestLevelMaori['datePrinted'] = $now->format('Y-m-d');
+    $highestLevelMaori['dateTime'] = $now->format('Y-m-d H:i');
 
     $handlebarsEngine = new Handlebars;
     $template = file_get_contents(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'templates' .

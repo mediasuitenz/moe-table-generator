@@ -2,6 +2,7 @@
 
 namespace MOETableGenerator;
 use Handlebars\Handlebars;
+use DateTimeZone, DateTime;
 
 class M3Table {
 
@@ -11,7 +12,7 @@ class M3Table {
    * @param  Array $moeFooter
    * @return String
    */
-  public function generate($moeFooter) {
+  public function generate($schoolName, $schoolNumber, $moeFooter) {
 
     //Perform calculations on footer
 
@@ -292,12 +293,19 @@ class M3Table {
 
     $totalFTETotal = BCUtil::bctotal($totalFTE, 1);
 
+    $nzdt = new DateTimeZone('Pacific/Auckland');
+    $now = new DateTime('now', $nzdt);
+
     $handlebarsEngine = new Handlebars;
     $template = file_get_contents(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'templates' .
       DIRECTORY_SEPARATOR . 'tableM3.html');
     return $handlebarsEngine->render(
       $template,
       array(
+        'schoolName' => $schoolName,
+        'schoolNumber' => $schoolNumber,
+        'datePrinted' => $now->format('Y-m-d'),
+
         'fullRegularMale' => $fullRegularMale,
         'fullRegularFemale' => $fullRegularFemale,
         'partTimeRegularMale' => $partTimeRegularMale,
