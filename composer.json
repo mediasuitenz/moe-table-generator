@@ -1,0 +1,17 @@
+{
+    "name": "linc-ed/moe-table-generator",
+    "require": {
+        "phpunit/phpunit": "~4.3",
+        "xamin/handlebars.php": "0.9.0"
+    },
+    "license": "proprietry",
+    "authors": [
+        {
+            "name": "Lewis Christie",
+            "email": "lewis@mediasuite.co.nz"
+        }
+    ],
+    "autoload": {
+        "psr-4": {"MOETableGenerator\\": "lib/"}
+    }
+}
