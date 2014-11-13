@@ -23,10 +23,10 @@ class M3Table {
 
     //PR students go from years 9 to 15
     $partTimeRegularMale = array_slice($moeFooter[2], 1, 7);
-    $partTimeRegularMaleTotal = self::bcTotal($partTimeRegularMale, 1);
+    $partTimeRegularMaleTotal = BCUtil::bctotal($partTimeRegularMale, 1);
 
     $partTimeRegularFemale = array_slice($moeFooter[2], 8, 14);
-    $partTimeRegularFemaleTotal = self::bcTotal($partTimeRegularFemale, 1);
+    $partTimeRegularFemaleTotal = BCUtil::bctotal($partTimeRegularFemale, 1);
 
     //FA students go from years 9 to 15
     $fullAdultMale = array_slice($moeFooter[3], 1, 7);
@@ -36,10 +36,10 @@ class M3Table {
 
     //PA students go from years 9 to 15
     $partTimeAdultMale = array_slice($moeFooter[4], 1, 7);
-    $partTimeAdultMaleTotal = self::bcTotal($partTimeAdultMale, 1);
+    $partTimeAdultMaleTotal = BCUtil::bctotal($partTimeAdultMale, 1);
 
     $partTimeAdultFemale = array_slice($moeFooter[4], 8, 14);
-    $partTimeAdultFemaleTotal = self::bcTotal($partTimeAdultFemale, 1);
+    $partTimeAdultFemaleTotal = BCUtil::bctotal($partTimeAdultFemale, 1);
 
     //Calculate total across rows 1 to 4
     $ministryFundedStudentsMale = array(
@@ -51,43 +51,43 @@ class M3Table {
       '5' => $fullRegularMale[5],
       '6' => $fullRegularMale[6],
       '7' => $fullRegularMale[7],
-      '8' => self::bcTotal([
+      '8' => BCUtil::bctotal([
         $fullRegularMale[8], 
         $partTimeRegularMale[0],
         $fullAdultMale[0],
         $partTimeAdultMale[0]
       ], 1),
-      '9' => self::bcTotal([
+      '9' => BCUtil::bctotal([
         $fullRegularMale[9], 
         $partTimeRegularMale[1],
         $fullAdultMale[1],
         $partTimeAdultMale[1]
       ], 1),
-      '10' => self::bcTotal([
+      '10' => BCUtil::bctotal([
         $fullRegularMale[10], 
         $partTimeRegularMale[2],
         $fullAdultMale[2],
         $partTimeAdultMale[2]
       ], 1),
-      '11' => self::bcTotal([
+      '11' => BCUtil::bctotal([
         $fullRegularMale[11], 
         $partTimeRegularMale[3],
         $fullAdultMale[3],
         $partTimeAdultMale[3]
       ], 1),
-      '12' => self::bcTotal([
+      '12' => BCUtil::bctotal([
         $fullRegularMale[12], 
         $partTimeRegularMale[4],
         $fullAdultMale[4],
         $partTimeAdultMale[4]
       ], 1),
-      '13' => self::bcTotal([
+      '13' => BCUtil::bctotal([
         $fullRegularMale[13], 
         $partTimeRegularMale[5],
         $fullAdultMale[5],
         $partTimeAdultMale[5]
       ], 1),
-      '14' => self::bcTotal([
+      '14' => BCUtil::bctotal([
         $fullRegularMale[14], 
         $partTimeRegularMale[6],
         $fullAdultMale[6],
@@ -95,7 +95,7 @@ class M3Table {
       ], 1),
     );
 
-    $ministryFundedStudentsMaleTotal = self::bcTotal($ministryFundedStudentsMale, 1);
+    $ministryFundedStudentsMaleTotal = BCUtil::bctotal($ministryFundedStudentsMale, 1);
 
     $ministryFundedStudentsFemale = array(
       '0' => $fullRegularFemale[0],
@@ -106,43 +106,43 @@ class M3Table {
       '5' => $fullRegularFemale[5],
       '6' => $fullRegularFemale[6],
       '7' => $fullRegularFemale[7],
-      '8' => self::bcTotal([
+      '8' => BCUtil::bctotal([
         $fullRegularFemale[8], 
         $partTimeRegularFemale[0],
         $fullAdultFemale[0],
         $partTimeAdultFemale[0]
       ], 1),
-      '9' => self::bcTotal([
+      '9' => BCUtil::bctotal([
         $fullRegularFemale[9], 
         $partTimeRegularFemale[1],
         $fullAdultFemale[1],
         $partTimeAdultFemale[1]
       ], 1),
-      '10' => self::bcTotal([
+      '10' => BCUtil::bctotal([
         $fullRegularFemale[10], 
         $partTimeRegularFemale[2],
         $fullAdultFemale[2],
         $partTimeAdultFemale[2]
       ], 1),
-      '11' => self::bcTotal([
+      '11' => BCUtil::bctotal([
         $fullRegularFemale[11], 
         $partTimeRegularFemale[3],
         $fullAdultFemale[3],
         $partTimeAdultFemale[3]
       ], 1),
-      '12' => self::bcTotal([
+      '12' => BCUtil::bctotal([
         $fullRegularFemale[12], 
         $partTimeRegularFemale[4],
         $fullAdultFemale[4],
         $partTimeAdultFemale[4]
       ], 1),
-      '13' => self::bcTotal([
+      '13' => BCUtil::bctotal([
         $fullRegularFemale[13], 
         $partTimeRegularFemale[5],
         $fullAdultFemale[5],
         $partTimeAdultFemale[5]
       ], 1),
-      '14' => self::bcTotal([
+      '14' => BCUtil::bctotal([
         $fullRegularFemale[14], 
         $partTimeRegularFemale[6],
         $fullAdultFemale[6],
@@ -150,28 +150,28 @@ class M3Table {
       ], 1),
     );
 
-    $ministryFundedStudentsFemaleTotal = self::bcTotal($ministryFundedStudentsFemale, 1);
+    $ministryFundedStudentsFemaleTotal = BCUtil::bctotal($ministryFundedStudentsFemale, 1);
 
     //ST students go from years 9 to 15
     $stMale = array_slice($moeFooter[5], 1, 7);
-    $stMaleTotal = self::bcTotal($stMale, 1);
+    $stMaleTotal = BCUtil::bctotal($stMale, 1);
 
     $stFemale = array_slice($moeFooter[5], 8, 14);
-    $stFemaleTotal = self::bcTotal($stFemale, 1);
+    $stFemaleTotal = BCUtil::bctotal($stFemale, 1);
 
     //AE students fo from years 9 to 15
     $alternativeEducationMale = array_slice($moeFooter[6], 1, 7);
-    $alternativeEducationMaleTotal = self::bcTotal($alternativeEducationMale, 1);
+    $alternativeEducationMaleTotal = BCUtil::bctotal($alternativeEducationMale, 1);
 
     $alternativeEducationFemale = array_slice($moeFooter[6], 8, 14);
-    $alternativeEducationFemaleTotal = self::bcTotal($alternativeEducationFemale, 1);
+    $alternativeEducationFemaleTotal = BCUtil::bctotal($alternativeEducationFemale, 1);
 
     ///FF students go from years 1 to 15
     $fullFeeMale = array_slice($moeFooter[7], 1, 15);
-    $fullFeeMaleTotal = self::bcTotal($fullFeeMale, 1);
+    $fullFeeMaleTotal = BCUtil::bctotal($fullFeeMale, 1);
 
     $fullFeeFemale = array_slice($moeFooter[7], 16, 30);
-    $fullFeeFemaleTotal = self::bcTotal($fullFeeFemale, 1);
+    $fullFeeFemaleTotal = BCUtil::bctotal($fullFeeFemale, 1);
 
     //Calculate totals across columns 5 to 8
     $totalFTEMale = array(
@@ -183,43 +183,43 @@ class M3Table {
       '5' => bcadd($ministryFundedStudentsMale[5], $fullFeeMale[5], 1),
       '6' => bcadd($ministryFundedStudentsMale[6], $fullFeeMale[6], 1),
       '7' => bcadd($ministryFundedStudentsMale[7], $fullFeeMale[7], 1),
-      '8' => self::bcTotal([
+      '8' => BCUtil::bctotal([
         $ministryFundedStudentsMale[8], 
         $stMale[0],
         $alternativeEducationMale[0],
         $fullFeeMale[8]
       ], 1),
-      '9' => self::bcTotal([
+      '9' => BCUtil::bctotal([
         $ministryFundedStudentsMale[9], 
         $stMale[1],
         $alternativeEducationMale[1],
         $fullFeeMale[9]
       ], 1),
-      '10' => self::bcTotal([
+      '10' => BCUtil::bctotal([
         $ministryFundedStudentsMale[10], 
         $stMale[2],
         $alternativeEducationMale[2],
         $fullFeeMale[10]
       ], 1),
-      '11' => self::bcTotal([
+      '11' => BCUtil::bctotal([
         $ministryFundedStudentsMale[11], 
         $stMale[3],
         $alternativeEducationMale[3],
         $fullFeeMale[11]
       ], 1),
-      '12' => self::bcTotal([
+      '12' => BCUtil::bctotal([
         $ministryFundedStudentsMale[12], 
         $stMale[4],
         $alternativeEducationMale[4],
         $fullFeeMale[12]
       ], 1),
-      '13' => self::bcTotal([
+      '13' => BCUtil::bctotal([
         $ministryFundedStudentsMale[13], 
         $stMale[5],
         $alternativeEducationMale[5],
         $fullFeeMale[13]
       ], 1),
-      '14' => self::bcTotal([
+      '14' => BCUtil::bctotal([
         $ministryFundedStudentsMale[14], 
         $stMale[6],
         $alternativeEducationMale[6],
@@ -227,7 +227,7 @@ class M3Table {
       ], 1),
     );
 
-    $totalFTEMaleTotal = self::bcTotal($totalFTEMale, 1);
+    $totalFTEMaleTotal = BCUtil::bctotal($totalFTEMale, 1);
 
     //Calculate totals across columns 5 to 8
     $totalFTEFemale = array(
@@ -239,43 +239,43 @@ class M3Table {
       '5' => bcadd($ministryFundedStudentsFemale[5], $fullFeeFemale[5], 1),
       '6' => bcadd($ministryFundedStudentsFemale[6], $fullFeeFemale[6], 1),
       '7' => bcadd($ministryFundedStudentsFemale[7], $fullFeeFemale[7], 1),
-      '8' => self::bcTotal([
+      '8' => BCUtil::bctotal([
         $ministryFundedStudentsFemale[8], 
         $stFemale[0],
         $alternativeEducationFemale[0],
         $fullFeeFemale[8]
       ], 1),
-      '9' => self::bcTotal([
+      '9' => BCUtil::bctotal([
         $ministryFundedStudentsFemale[9], 
         $stFemale[1],
         $alternativeEducationFemale[1],
         $fullFeeFemale[9]
       ], 1),
-      '10' => self::bcTotal([
+      '10' => BCUtil::bctotal([
         $ministryFundedStudentsFemale[10], 
         $stFemale[2],
         $alternativeEducationFemale[2],
         $fullFeeFemale[10]
       ], 1),
-      '11' => self::bcTotal([
+      '11' => BCUtil::bctotal([
         $ministryFundedStudentsFemale[11], 
         $stFemale[3],
         $alternativeEducationFemale[3],
         $fullFeeFemale[11]
       ], 1),
-      '12' => self::bcTotal([
+      '12' => BCUtil::bctotal([
         $ministryFundedStudentsFemale[12], 
         $stFemale[4],
         $alternativeEducationFemale[4],
         $fullFeeFemale[12]
       ], 1),
-      '13' => self::bcTotal([
+      '13' => BCUtil::bctotal([
         $ministryFundedStudentsFemale[13], 
         $stFemale[5],
         $alternativeEducationFemale[5],
         $fullFeeFemale[13]
       ], 1),
-      '14' => self::bcTotal([
+      '14' => BCUtil::bctotal([
         $ministryFundedStudentsFemale[14], 
         $stFemale[6],
         $alternativeEducationFemale[6],
@@ -283,14 +283,14 @@ class M3Table {
       ], 1),
     );
 
-    $totalFTEFemaleTotal = self::bcTotal($totalFTEFemale, 1);
+    $totalFTEFemaleTotal = BCUtil::bctotal($totalFTEFemale, 1);
 
     $totalFTE = array();
     for($i = 0; $i < 15; $i++) {
       $totalFTE[$i] = bcadd($totalFTEMale[$i], $totalFTEFemale[$i], 1);
     }
 
-    $totalFTETotal = self::bcTotal($totalFTE, 1);
+    $totalFTETotal = BCUtil::bctotal($totalFTE, 1);
 
     $handlebarsEngine = new Handlebars;
     $template = file_get_contents(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'templates' .
@@ -340,20 +340,5 @@ class M3Table {
       )
     );
   }
-
-  /**
-   * Given an array of numbers as strings, returns the total at the precision
-   * using bcadd function
-   * @param  Array $argsArray
-   * @return String
-   */
-  private static function bcTotal($argsArray, $precision) {
-    $total = '0';
-    foreach ($argsArray as $num) {
-      $total = bcadd($total, $num, $precision);
-    }
-    return $total;
-  }
-
 
 }
