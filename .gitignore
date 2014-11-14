@@ -1,2 +1,5 @@
 /vendor/
 /config.php
+/tests/testMOEFiles/M/*.html
+/tests/testMOEFiles/J/*.html
+tests/output.html
