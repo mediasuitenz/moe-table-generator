@@ -76,9 +76,10 @@ class MOETableGenerator {
       // file_put_contents($moeDir. DIRECTORY_SEPARATOR . 'auditTables.html', $auditTables);
 
     } else if ($month === 'J') {
-      //TODO:
+      $cutoffDate = '2015-07-01';
       $rollReturnTables .= J3Table::generate($schoolName, $schoolNumber, $footer);
-      // $rollReturnTables .= J4Table::generate($students);
+      $rollReturnTables .= J4Table::generate($smsName, $smsVersion, $schoolName, $schoolNumber, $cutoffDate, $students);
+      //TODO:
       // $rollReturnTables .= J5Table::generate($students);
       // $rollReturnTables .= J6Table::generate($students);
       // $rollReturnTables .= J7Table::generate($footer);
