@@ -79,11 +79,12 @@ class MOETableGenerator {
       $cutoffDate = '2015-07-01';
       $rollReturnTables .= J3Table::generate($schoolName, $schoolNumber, $footer);
       $rollReturnTables .= J4Table::generate($smsName, $smsVersion, $schoolName, $schoolNumber, $cutoffDate, $students);
+      $rollReturnTables .= J5Table::generate($smsName, $smsVersion, $schoolName, $schoolNumber, $cutoffDate, $students);
       //TODO:
-      // $rollReturnTables .= J5Table::generate($students);
       // $rollReturnTables .= J6Table::generate($students);
       // $rollReturnTables .= J7Table::generate($footer);
       // $rollReturnTables .= J9Table::generate($students);
+      //Save files to disk
     }
 
     return $rollReturnTables;
