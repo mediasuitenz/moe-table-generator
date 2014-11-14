@@ -70,10 +70,14 @@ class MOETableGenerator {
         file_put_contents($moeDir . DIRECTORY_SEPARATOR . 'm6Table.html', $m6TableHtml);
         
       }
-      // $rollReturnTables .= AuditTables::generate($somedata)
+      //TODO:
+      // $auditTables = AuditTables::generate($cutoffDate, $students);
+      // $rollReturnTables .= $auditTables;
+      // file_put_contents($moeDir. DIRECTORY_SEPARATOR . 'auditTables.html', $auditTables);
+
     } else if ($month === 'J') {
       //TODO:
-      // $rollReturnTables .= J3Table::generate($footer);
+      $rollReturnTables .= J3Table::generate($schoolName, $schoolNumber, $footer);
       // $rollReturnTables .= J4Table::generate($students);
       // $rollReturnTables .= J5Table::generate($students);
       // $rollReturnTables .= J6Table::generate($students);

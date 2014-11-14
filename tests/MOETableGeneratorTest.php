@@ -12,7 +12,14 @@ class MOEFileGeneratorTest extends PHPUnit_Framework_TestCase {
 
     $returnTables = MOETableGenerator\MOETableGenerator::generateTables('My School Name', $filePath);
 
-    file_put_contents(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'output.html', $returnTables);
+    file_put_contents(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'output-M-.html', $returnTables);
+
+    $filePath = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'testMOEFiles' .
+      DIRECTORY_SEPARATOR . 'J' . DIRECTORY_SEPARATOR . '12345J15.moe';
+
+    $returnTables = MOETableGenerator\MOETableGenerator::generateTables('My School Name', $filePath);
+
+    file_put_contents(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'output-J-.html', $returnTables);
   }
 
 }

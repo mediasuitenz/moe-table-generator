@@ -2,4 +2,5 @@
 /config.php
 /tests/testMOEFiles/M/*.html
 /tests/testMOEFiles/J/*.html
-tests/output.html
+tests/output-M-.html
+tests/output-J-.html
