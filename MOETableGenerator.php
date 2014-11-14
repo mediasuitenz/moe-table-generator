@@ -44,14 +44,32 @@ class MOETableGenerator {
     $smsName = $header[0];
     $smsVersion = $header[1];
     $schoolNumber = $header[4];
+    $enrolmentScheme = $header[6];
+    $enrolmentSchemeDate = $header[7];
 
     $rollReturnTables = '';
+    $moeDir = dirname($moeFilePath);
 
     if ($month === 'M') {
       $cutoffDate = '2015-03-01';
-      $rollReturnTables .= M3Table::generate($schoolName, $schoolNumber, $footer);
-      $rollReturnTables .= M4Table::generate($smsName, $smsVersion, $schoolName, $schoolNumber, $cutoffDate, $students);
-      // $rollReturnTables .= M6Table::generate($students);
+      $m3TableHtml = M3Table::generate($schoolName, $schoolNumber, $footer);
+      $rollReturnTables .= $m3TableHtml;
+      //Store on disk
+      file_put_contents($moeDir . DIRECTORY_SEPARATOR . 'm3Table.html', $m3TableHtml);
+
+      $m4TableHtml = M4Table::generate($smsName, $smsVersion, $schoolName, $schoolNumber, $cutoffDate, $students);
+      $rollReturnTables .= $m4TableHtml;
+      //Store on disk
+      file_put_contents($moeDir . DIRECTORY_SEPARATOR . 'm4Table.html', $m4TableHtml);
+
+      //When a school does not have a Ministry approved Enrolment scheme students should be recorded as NAPP and it is not necessary for the table (M6) to be produced.
+      if ($enrolmentScheme === 'Y') {
+        $m6TableHtml = M6Table::generate($smsName, $smsVersion, $schoolName, $schoolNumber, $enrolmentSchemeDate, $cutoffDate, $students);
+        $rollReturnTables .= $m6TableHtml;
+        //Store on disk
+        file_put_contents($moeDir . DIRECTORY_SEPARATOR . 'm6Table.html', $m6TableHtml);
+        
+      }
       // $rollReturnTables .= AuditTables::generate($somedata)
     } else if ($month === 'J') {
       //TODO:
