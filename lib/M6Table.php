@@ -90,8 +90,6 @@ class M6Table {
       }
     }
 
-    var_dump($studentsByZoningStatus);
-
     $studentsByZoningStatus['INZN']['total'] = array_sum($studentsByZoningStatus['INZN']);
     $studentsByZoningStatus['OUTZ']['total'] = array_sum($studentsByZoningStatus['OUTZ']);
     $studentsByZoningStatus['NAPP']['total'] = array_sum($studentsByZoningStatus['NAPP']);
