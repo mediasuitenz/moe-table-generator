@@ -9,6 +9,8 @@ class M3Table {
   /**
    * Given the footer of a .moe file returns the HMTL
    * for Table M3 School Roll by Type of Student and Funding Year Level
+   * @param  String $schoolName
+   * @param  String $schoolNumber
    * @param  Array $moeFooter
    * @return String
    */

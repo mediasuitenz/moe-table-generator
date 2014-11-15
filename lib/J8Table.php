@@ -6,6 +6,19 @@ use Handlebars\Handlebars;
 
 class J8Table {
 
+  /**
+   * Returns the table for early childhood care by ethnicity (year 1 only)
+   * Assumes that correspondance care is counted as Kindergarten column
+   * Assumes a null ECE field is unable to establish column
+   * This is not clear in specification
+   * @param  String $smsName
+   * @param  String $smsVersion
+   * @param  String $schoolName
+   * @param  String $schoolNumber
+   * @param  String $cutoff
+   * @param  Array $students
+   * @return String
+   */
   public static function generate($smsName, $smsVersion, $schoolName, $schoolNumber, $cutoff, $students) {
 
     $nzdt = new DateTimeZone('Pacific/Auckland');

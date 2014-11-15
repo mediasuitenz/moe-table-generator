@@ -6,6 +6,18 @@ use Handlebars\Handlebars;
 
 class J9Table {
 
+  /**
+   * Returns the table for pacific medium by level against ethnicity
+   * If more than one pacific medium is found in list of students returns
+   * additional tables
+   * @param  String $smsName
+   * @param  String $smsVersion
+   * @param  String $schoolName
+   * @param  String $schoolNumber
+   * @param  String $cutoff (Y-m-d)
+   * @param  Array  $students
+   * @return String
+   */
   public static function generate($smsName, $smsVersion, $schoolName, $schoolNumber, $cutoff, $students) {
 
     $nzdt = new DateTimeZone('Pacific/Auckland');

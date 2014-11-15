@@ -6,6 +6,16 @@ use Handlebars\Handlebars;
 
 class J5Table {
 
+  /**
+   * Returns the table for roll by age and ethnicity
+   * @param  String $smsName
+   * @param  String $smsVersion
+   * @param  String $schoolName
+   * @param  String $schoolNumber
+   * @param  String $cutoff (Y-m-d)
+   * @param  Array $students
+   * @return String
+   */
   public static function generate($smsName, $smsVersion, $schoolName, $schoolNumber, $cutoff, $students) {
 
     $nzdt = new DateTimeZone('Pacific/Auckland');

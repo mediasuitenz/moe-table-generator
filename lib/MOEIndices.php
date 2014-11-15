@@ -3,6 +3,13 @@
 namespace MOETableGenerator;
 
 class MOEIndices {
+
+  /**
+   * Returns the index of each field as named in the specification
+   * Useful for indexing into a row of the .moe by the name of the field
+   * instead of a magic number
+   * @return Array
+   */
   public static function getIndices() {
     return array(
       'SCHOOL_ID' => 0,

@@ -6,6 +6,17 @@ use DateTime, DateTimeZone;
 
 class M6Table {
 
+  /**
+   * Generates zoning status for schools with a valid enrolment scheme
+   * @param  String $smsName
+   * @param  String $smsVersion
+   * @param  String $schoolName
+   * @param  String $schoolNumber
+   * @param  String $enrolmentSchemeDate (Ymd)
+   * @param  String $cutoff - The cutoff date (Y-m-d) for this roll return table
+   * @param  Array $students 
+   * @return String
+   */
   public static function generate($smsName, $smsVersion, $schoolName, $schoolNumber, $enrolmentSchemeDate, $cutoff, $students) {
     
     $nzdt = new DateTimeZone('Pacific/Auckland');

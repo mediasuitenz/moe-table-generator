@@ -4,6 +4,11 @@ namespace MOETableGenerator;
 
 class Ethnicity {
 
+  /**
+   * Returns an array representing the ethnicity rows used by several tables
+   * where the value of each ethnicity is set to 0
+   * @return Array
+   */
   public static function getEthnicityRows() {
     return array(
       'maori' => 0,
@@ -33,7 +38,7 @@ class Ethnicity {
    * Returns the highest ranked reportable ethnicity from the ethnicity hierachy
    * in 6.4 of specification
    * @param  Array $student
-   * @return 
+   * @return String ethnicity
    */
   public static function getEthnicity($student) {
     $rankedEthnicCodes = array(
