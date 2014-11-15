@@ -9,6 +9,7 @@ class MOETableGenerator {
    * Generates tables for school types 20 and 21
    * Additionally generates audit tables
    * Tables are stored on disk as well as returned
+   * @param  String $schoolName Name of the school the .moe file belongs to
    * @param  String $moeFilePath Path to a .moe file 
    * @return String Html
    */
@@ -77,15 +78,31 @@ class MOETableGenerator {
 
     } else if ($month === 'J') {
       $cutoffDate = '2015-07-01';
-      $rollReturnTables .= J3Table::generate($schoolName, $schoolNumber, $footer);
-      $rollReturnTables .= J4Table::generate($smsName, $smsVersion, $schoolName, $schoolNumber, $cutoffDate, $students);
-      $rollReturnTables .= J5Table::generate($smsName, $smsVersion, $schoolName, $schoolNumber, $cutoffDate, $students);
-      $rollReturnTables .= J6Table::generate($smsName, $smsVersion, $schoolName, $schoolNumber, $cutoffDate, $students);
-      $rollReturnTables .= MaoriLanguageTable::generate($smsName, $smsVersion, $schoolName, $schoolNumber, $cutoffDate, $students, $month);
-      $rollReturnTables .= J8Table::generate($smsName, $smsVersion, $schoolName, $schoolNumber, $cutoffDate, $students);
-      $rollReturnTables .= J9Table::generate($smsName, $smsVersion, $schoolName, $schoolNumber, $cutoffDate, $students);
+      $j3Table = J3Table::generate($schoolName, $schoolNumber, $footer);
+      $rollReturnTables .= $j3Table;
+      file_put_contents($moeDir . DIRECTORY_SEPARATOR . 'j3Table.html', $j3Table);
+      $j4Table = J4Table::generate($smsName, $smsVersion, $schoolName, $schoolNumber, $cutoffDate, $students);
+      $rollReturnTables .= $j4Table;
+      file_put_contents($moeDir . DIRECTORY_SEPARATOR . 'j4Table.html', $j4Table);
+      $j5Table = J5Table::generate($smsName, $smsVersion, $schoolName, $schoolNumber, $cutoffDate, $students);
+      $rollReturnTables .= $j5Table;
+      file_put_contents($moeDir . DIRECTORY_SEPARATOR . 'j5Table.html', $j5Table);
+      $j6Table = J6Table::generate($smsName, $smsVersion, $schoolName, $schoolNumber, $cutoffDate, $students);
+      $rollReturnTables .= $j6Table;
+      file_put_contents($moeDir . DIRECTORY_SEPARATOR . 'j6Table.html', $j6Table);
+      $j7Table = MaoriLanguageTable::generate($smsName, $smsVersion, $schoolName, $schoolNumber, $cutoffDate, $students, $month);
+      $rollReturnTables .= $j7Table;
+      file_put_contents($moeDir . DIRECTORY_SEPARATOR . 'j7Table.html', $j7Table);
+      $j8Table = J8Table::generate($smsName, $smsVersion, $schoolName, $schoolNumber, $cutoffDate, $students);
+      $rollReturnTables .= $j8Table;
+      file_put_contents($moeDir . DIRECTORY_SEPARATOR . 'j8Table.html', $j8Table);
+      $j9Table = J9Table::generate($smsName, $smsVersion, $schoolName, $schoolNumber, $cutoffDate, $students);
+      $rollReturnTables .= $j9Table;
+      file_put_contents($moeDir . DIRECTORY_SEPARATOR . 'j9Table.html', $j9Table);
       //TODO:
-      //Save files to disk
+      // $auditTables = AuditTables::generate($cutoffDate, $students);
+      // $rollReturnTables .= $auditTables;
+      // file_put_contents($moeDir. DIRECTORY_SEPARATOR . 'auditTables.html', $auditTables);
     }
 
     return $rollReturnTables;
