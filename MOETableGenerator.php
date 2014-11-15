@@ -82,6 +82,7 @@ class MOETableGenerator {
       $rollReturnTables .= J5Table::generate($smsName, $smsVersion, $schoolName, $schoolNumber, $cutoffDate, $students);
       $rollReturnTables .= J6Table::generate($smsName, $smsVersion, $schoolName, $schoolNumber, $cutoffDate, $students);
       $rollReturnTables .= MaoriLanguageTable::generate($smsName, $smsVersion, $schoolName, $schoolNumber, $cutoffDate, $students, $month);
+      $rollReturnTables .= J8Table::generate($smsName, $smsVersion, $schoolName, $schoolNumber, $cutoffDate, $students);
       $rollReturnTables .= J9Table::generate($smsName, $smsVersion, $schoolName, $schoolNumber, $cutoffDate, $students);
       //TODO:
       //Save files to disk
