@@ -4,16 +4,21 @@ namespace MOETableGenerator;
 use Handlebars\Handlebars;
 use DateTime, DateTimeZone;
 
-class M4Table {
+class MaoriLanguageTable {
 
   /**
    * Given the footer of a .moe file returns the HMTL
-   * for Table M4: Highest Level of Māori Language Learning
+   * for Table M4 or J7: Highest Level of Māori Language Learning
+   * @param  String $smsName
+   * @param  String $smsVersion
+   * @param  String $schoolName
+   * @param  String $schoolNumber
    * @param  String $cutoff   Date to cutoff students for this table
    * @param  Array  $students
+   * @param  String $month M or J
    * @return String
    */
-  public function generate($smsName, $smsVersion, $schoolName, $schoolNumber, $cutoff, $students) {
+  public function generate($smsName, $smsVersion, $schoolName, $schoolNumber, $cutoff, $students, $month) {
 
     $rows = array();
 
@@ -132,8 +137,14 @@ class M4Table {
     $highestLevelMaori['dateTime'] = $now->format('Y-m-d H:i');
 
     $handlebarsEngine = new Handlebars;
-    $template = file_get_contents(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'templates' .
-      DIRECTORY_SEPARATOR . 'tableM4.html');
+
+    $templatePath = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR;
+    if ($month === 'M')  {
+      $templatePath .= 'tableM4.html';
+    } else if ($month === 'J') {
+      $templatePath .= 'tableJ7.html';
+    }
+    $template = file_get_contents($templatePath);
     return $handlebarsEngine->render(
       $template,
       $highestLevelMaori

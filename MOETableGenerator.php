@@ -57,7 +57,7 @@ class MOETableGenerator {
       //Store on disk
       file_put_contents($moeDir . DIRECTORY_SEPARATOR . 'm3Table.html', $m3TableHtml);
 
-      $m4TableHtml = M4Table::generate($smsName, $smsVersion, $schoolName, $schoolNumber, $cutoffDate, $students);
+      $m4TableHtml = MaoriLanguageTable::generate($smsName, $smsVersion, $schoolName, $schoolNumber, $cutoffDate, $students, $month);
       $rollReturnTables .= $m4TableHtml;
       //Store on disk
       file_put_contents($moeDir . DIRECTORY_SEPARATOR . 'm4Table.html', $m4TableHtml);
@@ -81,8 +81,8 @@ class MOETableGenerator {
       $rollReturnTables .= J4Table::generate($smsName, $smsVersion, $schoolName, $schoolNumber, $cutoffDate, $students);
       $rollReturnTables .= J5Table::generate($smsName, $smsVersion, $schoolName, $schoolNumber, $cutoffDate, $students);
       $rollReturnTables .= J6Table::generate($smsName, $smsVersion, $schoolName, $schoolNumber, $cutoffDate, $students);
+      $rollReturnTables .= MaoriLanguageTable::generate($smsName, $smsVersion, $schoolName, $schoolNumber, $cutoffDate, $students, $month);
       //TODO:
-      // $rollReturnTables .= J7Table::generate($footer);
       // $rollReturnTables .= J9Table::generate($students);
       //Save files to disk
     }
