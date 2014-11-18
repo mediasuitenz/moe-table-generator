@@ -12,7 +12,7 @@ class J3Table {
    * @param  Array $moeFooter
    * @return String
    */
-  public function generate($schoolName, $schoolNumber, $moeFooter) {
+  public static function generate($schoolName, $schoolNumber, $moeFooter) {
 
     //Perform calculations on footer
 

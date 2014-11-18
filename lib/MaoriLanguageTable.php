@@ -18,7 +18,7 @@ class MaoriLanguageTable {
    * @param  String $month M or J
    * @return String
    */
-  public function generate($smsName, $smsVersion, $schoolName, $schoolNumber, $cutoff, $students, $month) {
+  public static function generate($smsName, $smsVersion, $schoolName, $schoolNumber, $cutoff, $students, $month) {
 
     $rows = array();
 
