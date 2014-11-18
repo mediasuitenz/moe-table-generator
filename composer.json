@@ -13,5 +13,8 @@
     ],
     "autoload": {
         "psr-4": {"MOETableGenerator\\": ["", "/", "lib/"]}
+    },
+    "scripts": {
+        "test": "phpunit tests"
     }
 }
