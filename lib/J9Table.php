@@ -59,7 +59,7 @@ class J9Table {
 
     //Construct a table for each non-empty list of students
     foreach($pacificMediumLanguageStudents as $pacificMedium => $students) {
-      if (count($students) > 0) {
+
         $studentsInMedium = array(
           'language' => $pacificMediumLanguageCodes[$pacificMedium],
           'smsName' => $smsName,
@@ -138,7 +138,6 @@ class J9Table {
           $template,
           $studentsInMedium
         );
-      }
     }
 
     return $table;
