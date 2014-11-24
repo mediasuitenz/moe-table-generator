@@ -15,6 +15,7 @@ class MOETableGenerator {
    */
   public static function generateTables($schoolName, $moeFilePath) {
 
+ require(SIBSON_LIB.'/moe-table-generator/vendor/autoload.php');
     assert(is_file($moeFilePath), 'generateTables called with invalid file path');
 
     $moeFile = fopen($moeFilePath, 'r');
@@ -53,7 +54,7 @@ class MOETableGenerator {
 
     if ($month === 'M') {
       $cutoffDate = '2015-03-01';
-      $m3TableHtml = M3Table::generate($schoolName, $schoolNumber, $footer);
+      $totalFTE = M3Table::generate($schoolName, $schoolNumber, $footer);
       $rollReturnTables .= $m3TableHtml;
       //Store on disk
       file_put_contents($moeDir . DIRECTORY_SEPARATOR . 'm3Table.html', $m3TableHtml);
@@ -72,13 +73,13 @@ class MOETableGenerator {
         
       }
       //TODO:
-      // $auditTables = AuditTables::generate($cutoffDate, $students);
+     $auditTables = FullSchoolAuditTable::generate($smsName, $smsVersion, $schoolName, $schoolNumber, $cutoffDate, $students, $moeDir, $month, $totalFTE);
       // $rollReturnTables .= $auditTables;
-      // file_put_contents($moeDir. DIRECTORY_SEPARATOR . 'auditTables.html', $auditTables);
+      // file_put_contents($moeDir. DIRECTORY_SEPARATOR . 'auditTables.csv', $auditTables);
 
     } else if ($month === 'J') {
       $cutoffDate = '2015-07-01';
-      $j3Table = J3Table::generate($schoolName, $schoolNumber, $footer);
+      $totalRoll = J3Table::generate($schoolName, $schoolNumber, $footer);
       $rollReturnTables .= $j3Table;
       file_put_contents($moeDir . DIRECTORY_SEPARATOR . 'j3Table.html', $j3Table);
       $j4Table = J4Table::generate($smsName, $smsVersion, $schoolName, $schoolNumber, $cutoffDate, $students);
@@ -99,6 +100,8 @@ class MOETableGenerator {
       $j9Table = J9Table::generate($smsName, $smsVersion, $schoolName, $schoolNumber, $cutoffDate, $students);
       $rollReturnTables .= $j9Table;
       file_put_contents($moeDir . DIRECTORY_SEPARATOR . 'j9Table.html', $j9Table);
+   $auditTables = FullSchoolAuditTable::generate($smsName, $smsVersion, $schoolName, $schoolNumber, $cutoffDate, $students, $moeDir, $month, $totalRoll);
+      
       //TODO:
       // $auditTables = AuditTables::generate($cutoffDate, $students);
       // $rollReturnTables .= $auditTables;
