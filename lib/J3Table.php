@@ -292,14 +292,15 @@ class J3Table {
     }
 
     $totalNumberTotal = array_sum($totalNumber);
-
+     
     $nzdt = new DateTimeZone('Pacific/Auckland');
     $now = new DateTime('now', $nzdt);
 
     $handlebarsEngine = new Handlebars;
     $template = file_get_contents(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'templates' .
       DIRECTORY_SEPARATOR . 'tableJ3.html');
-    return $handlebarsEngine->render(
+    
+     $handlebarsEngine->render(
       $template,
       array(
         'schoolName' => $schoolName,
@@ -347,6 +348,8 @@ class J3Table {
         'totalNumberTotal' => $totalNumberTotal,
       )
     );
+
+return $totalNumberTotal;
   }
 
 }

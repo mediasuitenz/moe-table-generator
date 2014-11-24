@@ -294,14 +294,16 @@ class M3Table {
     }
 
     $totalFTETotal = BCUtil::bctotal($totalFTE, 1);
-
+   
     $nzdt = new DateTimeZone('Pacific/Auckland');
     $now = new DateTime('now', $nzdt);
 
     $handlebarsEngine = new Handlebars;
     $template = file_get_contents(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'templates' .
       DIRECTORY_SEPARATOR . 'tableM3.html');
-    return $handlebarsEngine->render(
+    
+
+     $handlebarsEngine->render(
       $template,
       array(
         'schoolName' => $schoolName,
@@ -349,6 +351,8 @@ class M3Table {
         'totalFTETotal' => $totalFTETotal,
       )
     );
+  return $totalFTETotal;
   }
+
 
 }
