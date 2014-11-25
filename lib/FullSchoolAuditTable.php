@@ -22,9 +22,7 @@ class FullSchoolAuditTable {
     $nzdt = new DateTimeZone('Pacific/Auckland');
     $now = date('dmY');  
 
-// require(SIBSON_EXCEL.'PHPExcel.php');
-
-//$objPHPExcel = new PHPExcel();
+ 
 
  $indices = MOEIndices::getIndices();
 
@@ -42,7 +40,7 @@ left join $usermeta_table on $groups_table.`user_id` = $usermeta_table.user_id w
 $class[$classes->group_id] = $classes;
 
 
-      $row[$student[$indices['SURNAME']].$student[$indices['STUDENT_ID']]] = array( 
+        $row[$student[$indices['SURNAME']].$student[$indices['STUDENT_ID']]] = array( 
         $student[$indices['STUDENT_ID']], 
         $student[$indices['SURNAME']].$student[$indices['FIRSTNAME']],
         $student[$indices['PREFERRED LAST NAME']].$student[$indices['PREFERRED FIRST NAME']], 
@@ -52,7 +50,7 @@ $class[$classes->group_id] = $classes;
         $student[$indices['FTE']],
         $classes->group_name);
 
-       $classrow[$classes->group_id][$student[$indices['SURNAME']].$student[$indices['STUDENT_ID']]] = array( 
+        $classrow[$classes->group_id][$student[$indices['SURNAME']].$student[$indices['STUDENT_ID']]] = array( 
         $student[$indices['STUDENT_ID']], 
         $student[$indices['SURNAME']].$student[$indices['FIRSTNAME']],
         $student[$indices['PREFERRED LAST NAME']].$student[$indices['PREFERRED FIRST NAME']], 
@@ -63,79 +61,38 @@ $class[$classes->group_id] = $classes;
         '',
          ''
        );
-
-  
     }
-
 ksort($row);
 
- 
-  
       $fileName = $moeDir . DIRECTORY_SEPARATOR . '/FullAuditList.csv'; 
    //   $fileurl = $moeDir . DIRECTORY_SEPARATOR . '/FullAuditList'.$cutoffDate.'.csv'; 
       $fh = fopen ($fileName, "w");
     
-// $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(A, 1, 'Full School Audit Roll');
     fputcsv($fh, array('Full School Audit Roll') );
-//$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(A, 2, 'School Number');
-//$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(B, 2, $schoolNumber);
-//$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(C, 2, 'Date Printed');
-//$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(D, 2, $now);
-
-//$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(A, 3, 'School Name');
-//$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(B, 3, $schoolName);
-
-//$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(A, 4, 'Roll Return Date:');
-//$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(B, 4, $cutoffDate);
-
-//$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(A, 5, 'Total School Roll');
-//$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(B, 5, $totalRoll);
-
-//$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(A, 6, 'Student Number');
-//$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(B, 6, $totalRoll);
-
-//$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(A, 7, 'Student Number');
-//$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(B, 7, 'Student Legal Name');
-//$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(C, 7, 'Student Preferred Name');
-//$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(D, 7, 'Funding Year Level');
-//$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(E, 7, 'Date of Birth');
-//$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(F, 7, 'Student Type');
-//$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(G, 7, 'FTE');
-//$objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow(H, 7, 'Group/ Class');
-
-
-
     fputcsv($fh, array('School Number', $schoolNumber, 'Date Printed:', $now) );
-     fputcsv($fh, array('School Name', $schoolName, 'Roll Return Date:', $cutoffDate) );
-      fputcsv($fh, array('Total School Roll', $totalNumber) );
+    fputcsv($fh, array('School Name', $schoolName, 'Roll Return Date:', $cutoffDate) );
+    fputcsv($fh, array('Total School Roll', $totalNumber) );
 
       fputcsv($fh, array( 'Student Number', 'Student Legal Name', 'Student Preferred Name', 'Funding Year Level', 'Date of Birth', 'Student Type', 'FTE', 'Group/ Class' ) );
-$cell[0]= 'A';
-$cell[1]= 'B';
-$cell[2]= 'C';
-$cell[3]= 'D';
-$cell[4]= 'E';
-$cell[5]= 'F';
-$cell[6]= 'G';
-$cell[7]= 'H';
+          $cell[0]= 'A';
+          $cell[1]= 'B';
+          $cell[2]= 'C';
+          $cell[3]= 'D';
+          $cell[4]= 'E';
+          $cell[5]= 'F';
+          $cell[6]= 'G';
+          $cell[7]= 'H';
 
 
-$i=8;
-foreach ($row as $r){
- fputcsv($fh, $r );
- // foreach ($r as $key=>$cell){
-
-   // $objPHPExcel->getActiveSheet()->setCellValueByColumnAndRow($cell[$key], $i, $cell); 
-  //}
-  $i++;
-}
+    $i=8;
+    foreach ($row as $r){
+     fputcsv($fh, $r );
+     
+      $i++;
+    }
 
  
- 
-//   $fileName = $moeDir . DIRECTORY_SEPARATOR . '/'.$schoolNumber.'FullAuditList.xlsx'; 
-  //$objWriter = new PHPExcel_Writer_Excel2007($objPHPExcel); $objWriter->save($fileName);  
-  // Close the file
-    //  fclose($fh);
+  
 
 
 foreach ($class as $key=>$c){
@@ -148,21 +105,21 @@ foreach ($class as $key=>$c){
     fputcsv($fh, array('Audit Class List') );
 
     fputcsv($fh, array('School Number', $schoolNumber, 'Date Printed:', $now) );
-     fputcsv($fh, array('School Name', $schoolName) );
-      fputcsv($fh, array('Class', $c->group_name) );
-       fputcsv($fh, array('Class Teacher', $c->teacher_first. " ". $c->teacher_last) );
-if ($month=='M'){
- fputcsv($fh, array( 'Student Number', 'Student Legal Name', 'Student Preferred Name', 'Funding Year Level', 'Date of Birth', 'Student Type', '27th Feb', '2nd March', '3rd March' ) );
+    fputcsv($fh, array('School Name', $schoolName) );
+    fputcsv($fh, array('Class', $c->group_name) );
+    fputcsv($fh, array('Class Teacher', $c->teacher_first. " ". $c->teacher_last) );
+      if ($month=='M'){
+       fputcsv($fh, array( 'Student Number', 'Student Legal Name', 'Student Preferred Name', 'Funding Year Level', 'Date of Birth', 'Student Type', '27th Feb', '2nd March', '3rd March' ) );
 
-}
-else {
-   fputcsv($fh, array( 'Student Number', 'Student Legal Name', 'Student Preferred Name', 'Funding Year Level', 'Date of Birth', 'Student Type', '30th June', '1st July', '2nd July' ) );
+      }
+      else {
+         fputcsv($fh, array( 'Student Number', 'Student Legal Name', 'Student Preferred Name', 'Funding Year Level', 'Date of Birth', 'Student Type', '30th June', '1st July', '2nd July' ) );
 
-}
+      }
      
-ksort($classrow[$c->group_id]);
-foreach ($classrow[$c->group_id] as $r){
- fputcsv($fh, $r );
+    ksort($classrow[$c->group_id]);
+    foreach ($classrow[$c->group_id] as $r){
+    fputcsv($fh, $r );
 }
   
    fputcsv($fh, array(
