@@ -14,7 +14,7 @@ class M3Table {
    * @param  Array $moeFooter
    * @return String
    */
-  public static function generate($schoolName, $schoolNumber, $moeFooter,$smsName, $smsVersion, $schoolName, $schoolNumber, $cutoffDate, $students, $moeDir, $month) {
+  public static function generate($schoolName, $schoolNumber, $moeFooter,$smsName, $smsVersion, $schoolName, $schoolNumber, $cutoffDate, $students, $moeDir, $month, $classes) {
 
     //Perform calculations on footer
 
@@ -297,7 +297,7 @@ class M3Table {
 
     $nzdt = new DateTimeZone('Pacific/Auckland');
     $now = new DateTime('now', $nzdt);
-    $auditTables = FullSchoolAuditTable::generate( $smsName, $smsVersion, $schoolName, $schoolNumber, $cutoffDate, $students, $moeDir, $month, $totalFTETotal);
+    $auditTables = FullSchoolAuditTable::generate( $smsName, $smsVersion, $schoolName, $schoolNumber, $cutoffDate, $students, $moeDir, $month, $totalFTETotal, $classes);
     $handlebarsEngine = new Handlebars;
     $template = file_get_contents(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'templates' .
       DIRECTORY_SEPARATOR . 'tableM3.html');
