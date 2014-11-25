@@ -17,7 +17,7 @@ class FullSchoolAuditTable {
    * @param  Array $students 
    * @return String
    */
-  public static function generate( $smsName, $smsVersion, $schoolName, $schoolNumber, $cutoffDate, $students, $moeDir, $month, $totalNumber){
+  public static function generate( $smsName, $smsVersion, $schoolName, $schoolNumber, $cutoffDate, $students, $moeDir, $month, $totalNumber, $classes){
     
     $nzdt = new DateTimeZone('Pacific/Auckland');
     $now = date('dmY');  
@@ -26,19 +26,17 @@ class FullSchoolAuditTable {
 
  $indices = MOEIndices::getIndices();
 
-global $wpdb;
-  $groups_table = $wpdb->prefix."groups";
-  $group_relationships_table = $wpdb->prefix."group_relationships";
-    $user_table = $wpdb->prefix."users";
-     $usermeta_table = $wpdb->prefix."usermeta";
+
+ 
+foreach ($classes as $class){
+
+  $StudentClass[$class->person_id]= $class->group_name;
+  $StudentClassId[$class->person_id]= $class->group_id;
+  $classData[$class->group_id] = $class; 
+}
 
 foreach ($students as $student) {
-
-$classes = $wpdb->get_row($wpdb->prepare("select $group_relationships_table .`person_id`, $groups_table .`group_id` AS `group_id`,$groups_table .`user_id` AS `user_id`, CASE WHEN $usermeta_table.meta_key = 'first_name' then $usermeta_table.meta_value end AS `teacher_first`, CASE WHEN $usermeta_table.meta_key = 'last_name' then $usermeta_table.meta_value end AS `teacher_last`,  $groups_table .`room` AS `room`,$groups_table .`year` AS `year`,$groups_table .`type` AS `type`,$groups_table .`group_name` AS `group_name`,$groups_table .`Team` AS `Team`,$groups_table .`team_order` AS `team_order`,$groups_table .`YearGroup` AS `YearGroup`,$groups_table .`ref_id` AS `ref_id`,$groups_table .`shared` AS `shared` from $groups_table left join $group_relationships_table on $groups_table .`group_id` = $group_relationships_table.group_id 
-left join $usermeta_table on $groups_table.`user_id` = $usermeta_table.user_id where ($groups_table .`type` = 'Class') and $group_relationships_table.person_id = %d", $student[$indices['STUDENT_ID']] ));
-
-$class[$classes->group_id] = $classes;
-
+  
 
         $row[$student[$indices['SURNAME']].$student[$indices['STUDENT_ID']]] = array( 
         $student[$indices['STUDENT_ID']], 
@@ -48,21 +46,26 @@ $class[$classes->group_id] = $classes;
         $student[$indices['DOB']] ,
         $student[$indices['TYPE']],
         $student[$indices['FTE']],
-        $classes->group_name);
-
-        $classrow[$classes->group_id][$student[$indices['SURNAME']].$student[$indices['STUDENT_ID']]] = array( 
+        $StudentClass[$student[$indices['STUDENT_ID']]] );
+        
+        $student_id = $student[$indices['STUDENT_ID']]; 
+        $group_id = $StudentClassId[$student_id];
+      if ($group_id){
+        $classrow[  $group_id  ][$student[$indices['SURNAME']].$student[$indices['STUDENT_ID']]] = array( 
         $student[$indices['STUDENT_ID']], 
         $student[$indices['SURNAME']].$student[$indices['FIRSTNAME']],
         $student[$indices['PREFERRED LAST NAME']].$student[$indices['PREFERRED FIRST NAME']], 
         $student[$indices['FUNDING YEAR LEVEL']],
         $student[$indices['DOB']] ,
-         $student[$indices['TYPE']],
+        $student[$indices['TYPE']],
        '',
         '',
          ''
        );
     }
-ksort($row);
+  }
+
+  ksort($row);
 
       $fileName = $moeDir . DIRECTORY_SEPARATOR . '/FullAuditList.csv'; 
    //   $fileurl = $moeDir . DIRECTORY_SEPARATOR . '/FullAuditList'.$cutoffDate.'.csv'; 
@@ -74,28 +77,15 @@ ksort($row);
     fputcsv($fh, array('Total School Roll', $totalNumber) );
 
       fputcsv($fh, array( 'Student Number', 'Student Legal Name', 'Student Preferred Name', 'Funding Year Level', 'Date of Birth', 'Student Type', 'FTE', 'Group/ Class' ) );
-          $cell[0]= 'A';
-          $cell[1]= 'B';
-          $cell[2]= 'C';
-          $cell[3]= 'D';
-          $cell[4]= 'E';
-          $cell[5]= 'F';
-          $cell[6]= 'G';
-          $cell[7]= 'H';
-
-
+          
     $i=8;
     foreach ($row as $r){
      fputcsv($fh, $r );
      
-      $i++;
+       
     }
-
  
-  
-
-
-foreach ($class as $key=>$c){
+foreach ($classData as $key=>$c){
 
    $fileName = $moeDir . DIRECTORY_SEPARATOR . '/ClassAuditList'.$key.'.csv'; 
      // $fileurl = $moeDir . DIRECTORY_SEPARATOR . '/'.$schoolNumber.'ClassAuditList'.$key.'.csv'; 
