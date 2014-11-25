@@ -12,7 +12,7 @@ class J3Table {
    * @param  Array $moeFooter
    * @return String
    */
-  public static function generate($schoolName, $schoolNumber, $moeFooter) {
+  public static function generate($schoolName, $schoolNumber, $moeFooter, $smsName, $smsVersion, $schoolName, $schoolNumber, $cutoffDate, $students, $moeDir, $month) {
 
     //Perform calculations on footer
 
@@ -292,7 +292,7 @@ class J3Table {
     }
 
     $totalNumberTotal = array_sum($totalNumber);
-     
+
     $nzdt = new DateTimeZone('Pacific/Auckland');
     $now = new DateTime('now', $nzdt);
 
@@ -300,7 +300,8 @@ class J3Table {
     $template = file_get_contents(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'templates' .
       DIRECTORY_SEPARATOR . 'tableJ3.html');
     
-     $handlebarsEngine->render(
+    $auditTables = FullSchoolAuditTable::generate( $smsName, $smsVersion, $schoolName, $schoolNumber, $cutoffDate, $students, $moeDir, $month, $totalNumberTotal);
+    return $handlebarsEngine->render(
       $template,
       array(
         'schoolName' => $schoolName,
@@ -348,8 +349,6 @@ class J3Table {
         'totalNumberTotal' => $totalNumberTotal,
       )
     );
-
-return $totalNumberTotal;
   }
 
 }

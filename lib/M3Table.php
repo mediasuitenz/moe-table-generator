@@ -14,7 +14,7 @@ class M3Table {
    * @param  Array $moeFooter
    * @return String
    */
-  public static function generate($schoolName, $schoolNumber, $moeFooter) {
+  public static function generate($schoolName, $schoolNumber, $moeFooter,$smsName, $smsVersion, $schoolName, $schoolNumber, $cutoffDate, $students, $moeDir, $month) {
 
     //Perform calculations on footer
 
@@ -294,16 +294,14 @@ class M3Table {
     }
 
     $totalFTETotal = BCUtil::bctotal($totalFTE, 1);
-   
+
     $nzdt = new DateTimeZone('Pacific/Auckland');
     $now = new DateTime('now', $nzdt);
-
+    $auditTables = FullSchoolAuditTable::generate( $smsName, $smsVersion, $schoolName, $schoolNumber, $cutoffDate, $students, $moeDir, $month, $totalFTETotal);
     $handlebarsEngine = new Handlebars;
     $template = file_get_contents(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'templates' .
       DIRECTORY_SEPARATOR . 'tableM3.html');
-    
-
-     $handlebarsEngine->render(
+    return $handlebarsEngine->render(
       $template,
       array(
         'schoolName' => $schoolName,
@@ -351,8 +349,6 @@ class M3Table {
         'totalFTETotal' => $totalFTETotal,
       )
     );
-  return $totalFTETotal;
   }
-
 
 }
