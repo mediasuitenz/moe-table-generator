@@ -53,7 +53,7 @@ class MOETableGenerator {
 
     if ($month === 'M') {
       $cutoffDate = '2015-03-01';
-      $m3TableHtml = M3Table::generate($schoolName, $schoolNumber, $footer, $smsName, $smsVersion, $schoolName, $schoolNumber, $cutoffDate, $students, $moeDir, 'M', $classes);
+      $m3TableHtml = M3Table::generate($schoolName, $schoolNumber, $footer);
       $rollReturnTables .= $m3TableHtml;
       //Store on disk
       file_put_contents($moeDir . DIRECTORY_SEPARATOR . 'm3Table.html', $m3TableHtml);
@@ -78,7 +78,7 @@ class MOETableGenerator {
 
     } else if ($month === 'J') {
       $cutoffDate = '2015-07-01';
-      $j3Table = J3Table::generate($schoolName, $schoolNumber, $footer, $smsName, $smsVersion, $schoolName, $schoolNumber, $cutoffDate, $students, $moeDir, 'J', $classes);
+      $j3Table = J3Table::generate($schoolName, $schoolNumber, $footer);
       $rollReturnTables .= $j3Table;
       file_put_contents($moeDir . DIRECTORY_SEPARATOR . 'j3Table.html', $j3Table);
       $j4Table = J4Table::generate($smsName, $smsVersion, $schoolName, $schoolNumber, $cutoffDate, $students);

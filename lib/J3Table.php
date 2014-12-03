@@ -12,7 +12,7 @@ class J3Table {
    * @param  Array $moeFooter
    * @return String
    */
-  public static function generate($schoolName, $schoolNumber, $moeFooter, $smsName, $smsVersion, $schoolName, $schoolNumber, $cutoffDate, $students, $moeDir, $month, $classes) {
+  public static function generate($schoolName, $schoolNumber, $moeFooter) {
 
     //Perform calculations on footer
 
@@ -299,8 +299,6 @@ class J3Table {
     $handlebarsEngine = new Handlebars;
     $template = file_get_contents(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'templates' .
       DIRECTORY_SEPARATOR . 'tableJ3.html');
-    
-    $auditTables = FullSchoolAuditTable::generate( $smsName, $smsVersion, $schoolName, $schoolNumber, $cutoffDate, $students, $moeDir, $month, $totalNumberTotal, $classes);
     return $handlebarsEngine->render(
       $template,
       array(
