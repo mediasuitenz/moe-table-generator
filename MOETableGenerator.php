@@ -71,11 +71,6 @@ class MOETableGenerator {
         file_put_contents($moeDir . DIRECTORY_SEPARATOR . 'm6Table.html', $m6TableHtml);
         
       }
-      //TODO:
-      // $auditTables = AuditTables::generate($cutoffDate, $students);
-      // $rollReturnTables .= $auditTables;
-      // file_put_contents($moeDir. DIRECTORY_SEPARATOR . 'auditTables.html', $auditTables);
-
     } else if ($month === 'J') {
       $cutoffDate = '2015-07-01';
       $j3Table = J3Table::generate($schoolName, $schoolNumber, $footer);
@@ -99,11 +94,16 @@ class MOETableGenerator {
       $j9Table = J9Table::generate($smsName, $smsVersion, $schoolName, $schoolNumber, $cutoffDate, $students);
       $rollReturnTables .= $j9Table;
       file_put_contents($moeDir . DIRECTORY_SEPARATOR . 'j9Table.html', $j9Table);
-      //TODO:
-      // $auditTables = AuditTables::generate($cutoffDate, $students);
-      // $rollReturnTables .= $auditTables;
-      // file_put_contents($moeDir. DIRECTORY_SEPARATOR . 'auditTables.html', $auditTables);
     }
+
+    $fullSchoolAuditData = FullSchoolAuditTable::generate($students, $classes, $cutoffDate);
+    $fullSchoolAuditHtml = FullSchoolAuditTable::generateHtml($fullSchoolAuditData, $schoolName, $schoolNumber, $cutoffDate);
+
+    $rollReturnTables .= $fullSchoolAuditHtml;
+
+    //Write CSV
+    $fullAuditFileName = $moeDir . DIRECTORY_SEPARATOR . 'FullSchoolAuditTable.csv';
+    FullSchoolAuditTable::writeCsv($fullSchoolAuditData, $schoolName, $schoolNumber, $cutoffDate, $fullAuditFileName);
 
     return $rollReturnTables;
   }

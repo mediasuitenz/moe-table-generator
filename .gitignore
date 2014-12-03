@@ -2,5 +2,7 @@
 /config.php
 /tests/testMOEFiles/M/*.html
 /tests/testMOEFiles/J/*.html
+/tests/testMOEFiles/M/*.csv
+/tests/testMOEFiles/J/*.csv
 tests/output-M-.html
 tests/output-J-.html

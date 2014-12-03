@@ -7,124 +7,92 @@ use DateTime, DateTimeZone;
 class FullSchoolAuditTable {
 
   /**
-   * Generates zoning status for schools with a valid enrolment scheme
-   * @param  String $smsName
-   * @param  String $smsVersion
-   * @param  String $schoolName
-   * @param  String $schoolNumber
-   * @param  String $enrolmentSchemeDate (Ymd)
-   * @param  String $cutoff - The cutoff date (Y-m-d) for this roll return table
-   * @param  Array $students 
-   * @return String
+   * Returns a sorted array of students for AuditRequirement 1
+   * @param $students Array of students from .moe
+   * @param $classes  Array of class objects from SMS
    */
-  public static function generate( $smsName, $smsVersion, $schoolName, $schoolNumber, $cutoffDate, $students, $moeDir, $month, $totalNumber, $classes){
-    
+  public static function generate($students, $classes, $cutoff) {
+
     $nzdt = new DateTimeZone('Pacific/Auckland');
-    $now = date('dmY');  
+    $cutoffDate = new DateTime($cutoff, $nzdt);
 
- 
+    $indices = MOEIndices::getIndices();
 
- $indices = MOEIndices::getIndices();
-
-
- 
-foreach ($classes as $class){
-
-  $StudentClass[$class->person_id]= $class->group_name;
-  $StudentClassId[$class->person_id]= $class->group_id;
-  $classData[$class->group_id] = $class; 
-}
-
-foreach ($students as $student) {
-  
-
-        $row[$student[$indices['SURNAME']].$student[$indices['STUDENT_ID']]] = array( 
-        $student[$indices['STUDENT_ID']], 
-        $student[$indices['SURNAME']].$student[$indices['FIRSTNAME']],
-        $student[$indices['PREFERRED LAST NAME']].$student[$indices['PREFERRED FIRST NAME']], 
-        $student[$indices['FUNDING YEAR LEVEL']],
-        $student[$indices['DOB']] ,
-        $student[$indices['TYPE']],
-        $student[$indices['FTE']],
-        $StudentClass[$student[$indices['STUDENT_ID']]] );
-        
-        $student_id = $student[$indices['STUDENT_ID']]; 
-        $group_id = $StudentClassId[$student_id];
-      if ($group_id){
-        $classrow[  $group_id  ][$student[$indices['SURNAME']].$student[$indices['STUDENT_ID']]] = array( 
-        $student[$indices['STUDENT_ID']], 
-        $student[$indices['SURNAME']].$student[$indices['FIRSTNAME']],
-        $student[$indices['PREFERRED LAST NAME']].$student[$indices['PREFERRED FIRST NAME']], 
-        $student[$indices['FUNDING YEAR LEVEL']],
-        $student[$indices['DOB']] ,
-        $student[$indices['TYPE']],
-       '',
-        '',
-         ''
-       );
+    foreach ($classes as $class){
+      $studentIdToGroupName[$class->person_id]= $class->group_name;
     }
+
+    $studentFilter = function($collectionDate, $student) {
+      $validStudentTypes = array('FF', 'EX', 'AE', 'RA', 'AD', 'RE', 'TPREOM', 'TPRAOM');
+      $nzdt = new DateTimeZone('Pacific/Auckland');
+      $indices = MOEIndices::getIndices();
+      $startDate = new DateTime($student[$indices['FIRST ATTENDANCE']], $nzdt);
+      $lastAttendance = empty($student[$indices['LAST ATTENDANCE']]) ? null : new DateTime($student[$indices['LAST ATTENDANCE']], $nzdt);
+      return (in_array($student[$indices['TYPE']], $validStudentTypes) &&
+        $startDate->getTimestamp() <= $collectionDate->getTimestamp() &&
+        (is_null($lastAttendance) || $lastAttendance->getTimestamp() >= $collectionDate->getTimestamp())
+      );
+    };
+
+    foreach ($students as $student) {
+      if ($studentFilter($cutoffDate, $student) === true) {
+        //Concatenate student id to surname to prevent key collision
+        $studentRows[$student[$indices['SURNAME']].$student[$indices['STUDENT_ID']]] = array( 
+          $student[$indices['STUDENT_ID']], 
+          $student[$indices['SURNAME']] . ' ' . $student[$indices['FIRSTNAME']],
+          $student[$indices['PREFERRED LAST NAME']] . ' ' . $student[$indices['PREFERRED FIRST NAME']], 
+          $student[$indices['FUNDING YEAR LEVEL']],
+          $student[$indices['DOB']] ,
+          $student[$indices['TYPE']],
+          $student[$indices['FTE']],
+          $studentIdToGroupName[$student[$indices['STUDENT_ID']]]
+        );
+      }
+    }
+
+    ksort($studentRows);
+
+    return $studentRows;
   }
 
-  ksort($row);
+  public static function generateHtml($fullSchoolAuditData, $schoolName, $schoolNumber, $rollReturnDate) {
+    $nzdt = new DateTimeZone('Pacific/Auckland');
+    $now = new DateTime('now', $nzdt);
+    $rollReturnDate = new DateTime($rollReturnDate, $nzdt);
+    $handlebarsEngine = new Handlebars;
+    $template = file_get_contents(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'templates' .
+      DIRECTORY_SEPARATOR . 'fullSchoolAudit.html');
+    return $handlebarsEngine->render(
+      $template,
+      array(
+        'schoolName' => $schoolName,
+        'schoolNumber' => $schoolNumber,
+        'totalRoll' => count($fullSchoolAuditData),
+        'datePrinted' => $now->format('dmY'),
+        'rollReturnDate' => $rollReturnDate->format('dmY'),
+        'fullSchoolAuditData' => $fullSchoolAuditData
+      )
+    );
+  }
 
-      $fileName = $moeDir . DIRECTORY_SEPARATOR . '/FullAuditList.csv'; 
-   //   $fileurl = $moeDir . DIRECTORY_SEPARATOR . '/FullAuditList'.$cutoffDate.'.csv'; 
-      $fh = fopen ($fileName, "w");
-    
+  public static function writeCsv($fullSchoolAuditData, $schoolName, $schoolNumber, $rollReturnDate, $filePath) {
+    $fh = fopen ($filePath, "w");
+
+    $nzdt = new DateTimeZone('Pacific/Auckland');
+    $now = new DateTime('now', $nzdt);
+    $rollReturnDate = new DateTime($rollReturnDate, $nzdt);
+
     fputcsv($fh, array('Full School Audit Roll') );
-    fputcsv($fh, array('School Number', $schoolNumber, 'Date Printed:', $now) );
-    fputcsv($fh, array('School Name', $schoolName, 'Roll Return Date:', $cutoffDate) );
-    fputcsv($fh, array('Total School Roll', $totalNumber) );
+    fputcsv($fh, array('School Number', $schoolNumber, 'Date Printed:', $now->format('dmY')) );
+    fputcsv($fh, array('School Name', $schoolName, 'Roll Return Date:', $rollReturnDate->format('dmY')) );
+    fputcsv($fh, array('Total School Roll', count($fullSchoolAuditData)));
 
-      fputcsv($fh, array( 'Student Number', 'Student Legal Name', 'Student Preferred Name', 'Funding Year Level', 'Date of Birth', 'Student Type', 'FTE', 'Group/ Class' ) );
-          
-    $i=8;
-    foreach ($row as $r){
-     fputcsv($fh, $r );
-     
-       
+    fputcsv($fh, array('Student Number', 'Student Legal Name', 'Student Preferred Name', 'Funding Year Level', 'Date of Birth', 'Student Type', 'FTE', 'Group/ Class'));
+
+    foreach ($fullSchoolAuditData as $row) {
+      fputcsv($fh, $row);
     }
- 
-foreach ($classData as $key=>$c){
 
-   $fileName = $moeDir . DIRECTORY_SEPARATOR . '/ClassAuditList'.$key.'.csv'; 
-     // $fileurl = $moeDir . DIRECTORY_SEPARATOR . '/'.$schoolNumber.'ClassAuditList'.$key.'.csv'; 
-      $fh = fopen ($fileName, "w");
-    
-
-    fputcsv($fh, array('Audit Class List') );
-
-    fputcsv($fh, array('School Number', $schoolNumber, 'Date Printed:', $now) );
-    fputcsv($fh, array('School Name', $schoolName) );
-    fputcsv($fh, array('Class', $c->group_name) );
-    fputcsv($fh, array('Class Teacher', $c->teacher_first. " ". $c->teacher_last) );
-      if ($month=='M'){
-       fputcsv($fh, array( 'Student Number', 'Student Legal Name', 'Student Preferred Name', 'Funding Year Level', 'Date of Birth', 'Student Type', '27th Feb', '2nd March', '3rd March' ) );
-
-      }
-      else {
-         fputcsv($fh, array( 'Student Number', 'Student Legal Name', 'Student Preferred Name', 'Funding Year Level', 'Date of Birth', 'Student Type', '30th June', '1st July', '2nd July' ) );
-
-      }
-     
-    ksort($classrow[$c->group_id]);
-    foreach ($classrow[$c->group_id] as $r){
-    fputcsv($fh, $r );
-}
-  
-   fputcsv($fh, array(
-'This audit class list has been completed by the classroom teacher during class time. All of the students in this class are shown on this class list. The attendance shown accurately records whether the student was physically present or not in the class for each of the times when this class was taught during the relevant three day period. Present must be clearly recorded with a P and Absence with an A. 
-This audit class list accurately records the attendance of each student in this class.') );
-
-   fputcsv($fh, array('Teacher Signature', ' ', 'Teacher Name:', ' ', 'Date') );
-}
-
-
-  // Close the file
-      fclose($fh);
-
-    
-
+    fclose($fh);
   }
-
 }

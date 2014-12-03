@@ -1,0 +1,36 @@
+<strong>Full School Audit Roll</strong>
+
+<table>
+  <tr>
+    <td><strong>School Number:</strong> {{schoolNumber}}</td>
+    <td><strong>Date Printed:</strong> {{datePrinted}}</td>
+  </tr>
+  <tr>
+    <td><strong>School Name:</strong> {{schoolName}}</td>
+    <td><strong>Roll Return Date:</strong> {{rollReturnDate}}</td>
+  </tr>
+  <tr>
+    <td><strong>Total School Roll:</strong> {{totalRoll}}</td>
+    <td></td>
+  </tr>
+</table>
+
+<table>
+  <tr>
+    <th>Student Number</th>
+    <th>Student Legal Name</th>
+    <th>Student Preferred Name</th>
+    <th>Funding Year Level</th>
+    <th>Date of Birth</th>
+    <th>Student Type</th>
+    <th>FTE</th>
+    <th>Group / Class</th>
+  </tr>
+  {{#each fullSchoolAuditData}}
+  <tr>
+    {{#each this}}
+    <td>{{this}}</td>
+    {{/each}}
+  </tr>
+  {{/each}}
+</table>
