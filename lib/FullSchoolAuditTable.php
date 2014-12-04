@@ -37,7 +37,7 @@ class FullSchoolAuditTable {
     foreach ($students as $student) {
       if ($studentFilter($cutoffDate, $student) === true) {
         //Concatenate student id to surname to prevent key collision
-        $studentRows[$student[$indices['SURNAME']].$student[$indices['STUDENT_ID']]] = array( 
+        $studentRows[$student[$indices['SURNAME']].$student[$indices['FIRSTNAME']].$student[$indices['STUDENT_ID']]] = array( 
           $student[$indices['STUDENT_ID']], 
           $student[$indices['SURNAME']] . ' ' . $student[$indices['FIRSTNAME']],
           $student[$indices['PREFERRED LAST NAME']] . ' ' . $student[$indices['PREFERRED FIRST NAME']], 
