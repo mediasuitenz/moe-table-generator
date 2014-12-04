@@ -1,0 +1,23 @@
+<strong>List of Exchange students</strong>
+
+<table>
+  <tr>
+    <th>Full Student Name</th>
+    <th>Gender</th>
+    <th>Date of Birth</th>
+    <th>Country of Citizenship</th>
+    <th>Type of Exchange scheme</th>
+    <th>First Attendance</th>
+    <th>Funding Year Level</th>
+    <th>FTE</th>
+  </tr>
+  {{#each exchangeStudents}}
+  <tr>
+    {{#each this}}
+    <td>{{this}}</td>
+    {{/each}}
+  </tr>
+  {{/each}}
+</table>
+
+Total number of Exchange Students: {{totalExchangeStudents}}

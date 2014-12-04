@@ -107,6 +107,16 @@ class MOETableGenerator {
 
     $maoriLanguageAuditHtml = MaoriLanguageAuditTable::generate($students, $cutoffDate);
     $rollReturnTables .= $maoriLanguageAuditHtml;
+
+    $exchangeStudentAuditHtml = ExchangeStudentAuditTable::generate($students, $cutoffDate);
+    $rollReturnTables .= $exchangeStudentAuditHtml;
+
+    //TODO:
+    // $feePayingStudentAuditHtml = FeePayingStudentAuditTable::generate($students, $cutoffDate);
+    // $rollReturnTables .= $feePayingStudentAuditHtml;
+
+    // $notFundedStudentAuditHtml = NotFundedStudentAuditTable::generate($students, $cutoffDate);
+    // $rollReturnTables .= $notFundedStudentAuditHtml;
     return $rollReturnTables;
   }
 
