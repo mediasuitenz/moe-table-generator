@@ -111,12 +111,11 @@ class MOETableGenerator {
     $exchangeStudentAuditHtml = ExchangeStudentAuditTable::generate($students, $cutoffDate);
     $rollReturnTables .= $exchangeStudentAuditHtml;
 
-    //TODO:
-    // $feePayingStudentAuditHtml = FeePayingStudentAuditTable::generate($students, $cutoffDate);
-    // $rollReturnTables .= $feePayingStudentAuditHtml;
+    $feePayingStudentAuditHtml = FeePayingStudentAuditTable::generate($students, $cutoffDate);
+    $rollReturnTables .= $feePayingStudentAuditHtml;
 
-    // $notFundedStudentAuditHtml = NotFundedStudentAuditTable::generate($students, $cutoffDate);
-    // $rollReturnTables .= $notFundedStudentAuditHtml;
+    $notFundedStudentAuditHtml = NotFundedStudentAuditTable::generate($students, $cutoffDate);
+    $rollReturnTables .= $notFundedStudentAuditHtml;
     return $rollReturnTables;
   }
 
