@@ -11,7 +11,7 @@ class FullSchoolAuditTable {
    * @param $students Array of students from .moe
    * @param $classes  Array of class objects from SMS
    */
-  public static function generate($students, $classes, $cutoff) {
+  public static function generateData($students, $classes, $cutoff) {
 
     $nzdt = new DateTimeZone('Pacific/Auckland');
     $cutoffDate = new DateTime($cutoff, $nzdt);
