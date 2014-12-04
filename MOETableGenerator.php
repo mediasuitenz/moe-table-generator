@@ -96,7 +96,7 @@ class MOETableGenerator {
       file_put_contents($moeDir . DIRECTORY_SEPARATOR . 'j9Table.html', $j9Table);
     }
 
-    $fullSchoolAuditData = FullSchoolAuditTable::generate($students, $classes, $cutoffDate);
+    $fullSchoolAuditData = FullSchoolAuditTable::generateData($students, $classes, $cutoffDate);
     $fullSchoolAuditHtml = FullSchoolAuditTable::generateHtml($fullSchoolAuditData, $schoolName, $schoolNumber, $cutoffDate);
 
     $rollReturnTables .= $fullSchoolAuditHtml;
