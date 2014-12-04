@@ -1,23 +1,44 @@
-<br clear="all"
-style="page-break-before:always">
-<div>
-<p>TABLE M6</p>
-<center><table style="text-align:center">
-<tr><td colspan="3">1 MARCH 2015 (HEADCOUNT)</td></tr>
-<tr><td colspan="3">NUMBER OF REGULAR (including adult) STUDENTS BY ZONING STATUS</td></tr>
-<tr><td colspan="3">Only applicable to State (non-integrated) Schools who participate in an approved Ministry of Education Enrolment Scheme</td></tr>
-<tr>
-  <td>School Number: {{schoolNumber}}</td>
-  <td>School Name: {{schoolName}}</td>
-  <td>Date Printed: {{datePrinted}}</td>
-</tr>
-<tr><td>Effective Date of the Enrolment Scheme: {{enrolmentSchemeDate}}</td></tr>
-</table></center>
-</div>
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Table M6</title>
+<style>
+@media print {
+table {
+	width: 100%;
+	page-break-after: always;
+}
+table, th, td {
+	border: 1px solid black;
+	border-collapse: collapse;
+	padding: 10px;
+}
+.no-border {
+	border: none !important
+}
+.narrow {
+	width: 2%;
+}
+}
+</style>
+</head>
 
-<div>
-<center>
-<table border="1" cellspacing="0" cellpadding="0">
+<body>
+<p>TABLE M6</p>
+<div style="margin-left:auto; margin-right:auto; text-align:center"> 
+<p>1 MARCH 2015 (HEADCOUNT)</p>
+<p>NUMBER OF REGULAR (including adult) STUDENTS BY ZONING STATUS</p>
+<p>Only applicable to State (non-integrated) Schools who participate in an approved Ministry of Education Enrolment Scheme</p>
+   </div>
+      <p><span style="float:left">School Number: {{schoolNumber}} </span>
+     <span style="float:left; margin-left: 50px"> School Name: {{schoolName}}</span>
+    <span style="float:right"> Date Printed: {{datePrinted}}</span></p>
+    </br>
+<p>Effective Date of the Enrolment Scheme: {{enrolmentSchemeDate}}</p>
+
+
+<center><table style="text-align:center">
 <tr>
   <td rowspan="2"><strong>Funding Year Level</strong></td>
   <td colspan="4"><strong>Number of Full-time Regular and Full-time Adult Students by Zoning Status</strong></td>
@@ -140,15 +161,11 @@ style="page-break-before:always">
   <td>{{NAPP.total}}</td>
   <td>{{total.total}}</td>
 </tr>
-</table>
-</center>
-</div>
 
-<div>
-<center><table>
 <tr>
-  <td>SMS Name: {{smsName}}</td>
-  <td>SMS Version: {{smsVersion}}</td>
-  <td>Date: {{dateTime}}</td>
+  <td colspan="2">SMS Name: {{smsName}}</td>
+  <td colspan="2">SMS Version: {{smsVersion}}</td>
+  <td colspan="1">Date: {{dateTime}}</td>
 </table></center>
-</div>
+</body>
+</html>

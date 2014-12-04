@@ -1,72 +1,83 @@
-<br clear=all
-style='page-break-before:always'>
-  <p ><b><span lang=EN-GB style='font-family:Calibri'>TABLE
-    J9</span></b></p>
-  <p  align=center style='text-align:center'><span
-lang=EN-GB style='font-family:Calibri;'>1 July 2015 (HEADCOUNT)</span></p>
-  <p  align=center style='text-align:center'><span
-lang=EN-GB style='font-family:Calibri;'>ÔHIGHESTÕ LEVEL OF PACIFIC MEDIUM EDUCATION</span></p>
-  <p  align=center style='text-align:center'><span
-lang=EN-GB style='font-family:Calibri;'>Students are counted ONCE only at their highest level</span></p>
-  <table border=0 cellspacing=0 cellpadding=0>
-    <tr>
-      <td width=212 valign=top><p ><span style='font-family:Calibri;'>School Number: {{schoolNumber}}</span></p></td>
-      <td width=260 valign=top><p ><span style='font-family:Calibri;'>School Name: {{schoolName}}</span></p></td>
-      <td width=236 valign=top><p ><span style='font-family:Calibri;'>Date Printed: {{datePrinted}}</span></p></td>
-    </tr>
-  </table>
-  <p ><b><span lang=EN-GB style='font-family:Calibri;
-'>LANGUAGE OF INSTRUCTION: {{language}}</span></b></p>
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Table J9</title>
+<style>
+@media print {
+table {
+	width: 100%;
+	page-break-after: always;
+}
+table, th, td {
+	border: 1px solid black;
+	border-collapse: collapse;
+	padding: 10px;
+}
+.no-border {
+	border: none !important
+}
+.narrow {
+	width: 2%;
+}
+}
+</style>
+</head>
+
+<body>
+<b>TABLE
+    J9</b>
+  1 July (HEADCOUNT)
+  HIGHEST LEVEL OF PACIFIC MEDIUM EDUCATION
+  Students are counted ONCE only at their highest level
+ 
+ <p><span style="float:left">School Number: {{schoolNumber}} </span>
+     <span style="float:left; margin-left: 50px"> School Name: {{schoolName}}</span>
+    <span style="float:right"> Date Printed: {{datePrinted}}</span></p>
+    </br>
+
+  <b>LANGUAGE OF INSTRUCTION: {{language}}</b>
   <div align=center>
     <table border=1 cellspacing=0 cellpadding=0 width=776>
       <tr>
         <td width=93>&nbsp;</td>
-        <td width=50 bgcolor="#D9D9D9"><p  align=center style='text-align:center'><b><span lang=EN-GB style='font-family:Calibri;'>Level of Learning</span></b></p></td>
-        <td width=113 bgcolor="#D9D9D9"><p  align=center style='text-align:center'><b><span lang=EN-GB style='font-family:Calibri;'>Teacher instruction time spent
-            teaching curriculum subjects in a Pacific Language</span></b></p></td>
-        <td width=106 bgcolor="#D9D9D9"><p  align=center style='text-align:center'><b><span lang=EN-GB style='font-family:Calibri;'>Number of students</span></b></p></td>
-        <td width=25 bgcolor="#D9D9D9"><p  align=center style='text-align:center'><b><span lang=EN-GB style='font-family:Calibri;'>Y1</span></b></p></td>
-        <td width=25 bgcolor="#D9D9D9"><p  align=center style='text-align:center'><b><span lang=EN-GB style='font-family:Calibri;'>Y2</span></b></p></td>
-        <td width=25 bgcolor="#D9D9D9"><p  align=center style='text-align:center'><b><span lang=EN-GB style='font-family:Calibri;'>Y3</span></b></p></td>
-        <td width=25 bgcolor="#D9D9D9"><p  align=center style='text-align:center'><b><span lang=EN-GB style='font-family:Calibri;'>Y4</span></b></p></td>
-        <td width=25 bgcolor="#D9D9D9"><p  align=center style='text-align:center'><b><span lang=EN-GB style='font-family:Calibri;'>Y5</span></b></p></td>
-        <td width=25 bgcolor="#D9D9D9"><p  align=center style='text-align:center'><b><span lang=EN-GB style='font-family:Calibri;'>Y6</span></b></p></td>
-        <td width=25 bgcolor="#D9D9D9"><p  align=center style='text-align:center'><b><span lang=EN-GB style='font-family:Calibri;'>Y7</span></b></p></td>
-        <td width=25 bgcolor="#D9D9D9"><p  align=center style='text-align:center'><b><span lang=EN-GB style='font-family:Calibri;'>Y8</span></b></p></td>
-        <td width=25 bgcolor="#D9D9D9"><p  align=center style='text-align:center'><b><span lang=EN-GB style='font-family:Calibri;'>Y9</span></b></p></td>
-        <td width=25 bgcolor="#D9D9D9"><p  align=center style='text-align:center'><b><span lang=EN-GB style='font-family:Calibri;'>Y10</span></b></p></td>
-        <td width=25 bgcolor="#D9D9D9"><p  align=center style='text-align:center'><b><span lang=EN-GB style='font-family:Calibri;'>Y11</span></b></p></td>
-        <td width=25 bgcolor="#D9D9D9"><p  align=center style='text-align:center'><b><span lang=EN-GB style='font-family:Calibri;'>Y12</span></b></p></td>
-        <td width=25 bgcolor="#D9D9D9"><p  align=center style='text-align:center'><b><span lang=EN-GB style='font-family:Calibri;'>Y13</span></b></p></td>
-        <td width=25 bgcolor="#D9D9D9"><p  align=center style='text-align:center'><b><span lang=EN-GB style='font-family:Calibri;'>Y14</span></b></p></td>
-        <td width=25 bgcolor="#D9D9D9"><p  align=center style='text-align:center'><b><span lang=EN-GB style='font-family:Calibri;'>Y15</span></b></p></td>
-        <td width=34 bgcolor="#D9D9D9"><p  align=center style='text-align:center'><b><span lang=EN-GB style='font-family:Calibri;'>Total</span></b></p></td>
+        <td width=50 bgcolor="#D9D9D9"><b>Level of Learning</b></td>
+        <td width=113 bgcolor="#D9D9D9"><b>Teacher instruction time spent
+        teaching curriculum subjects in a Pacific Language</b></td>
+        <td width=106 bgcolor="#D9D9D9"><b>Number of students</b></td>
+        <td width=25 bgcolor="#D9D9D9"><b>Y1</b></td>
+        <td width=25 bgcolor="#D9D9D9"><b>Y2</b></td>
+        <td width=25 bgcolor="#D9D9D9"><b>Y3</b></td>
+        <td width=25 bgcolor="#D9D9D9"><b>Y4</b></td>
+        <td width=25 bgcolor="#D9D9D9"><b>Y5</b></td>
+        <td width=25 bgcolor="#D9D9D9"><b>Y6</b></td>
+        <td width=25 bgcolor="#D9D9D9"><b>Y7</b></td>
+        <td width=25 bgcolor="#D9D9D9"><b>Y8</b></td>
+        <td width=25 bgcolor="#D9D9D9"><b>Y9</b></td>
+        <td width=25 bgcolor="#D9D9D9"><b>Y10</b></td>
+        <td width=25 bgcolor="#D9D9D9"><b>Y11</b></td>
+        <td width=25 bgcolor="#D9D9D9"><b>Y12</b></td>
+        <td width=25 bgcolor="#D9D9D9"><b>Y13</b></td>
+        <td width=25 bgcolor="#D9D9D9"><b>Y14</b></td>
+        <td width=25 bgcolor="#D9D9D9"><b>Y15</b></td>
+        <td width=34 bgcolor="#D9D9D9"><b>Total</b></td>
       </tr>
       <tr>
-        <td width=93 rowspan=8 bgcolor="#D9D9D9"><p ><b><span
-  style='font-family:Calibri'>Pacific Medium Education:</span></b></p>
-          <p ><b><span
-  style='font-family:Calibri'>Students are taught
-            curriculum subjects (other than a Pacific language)&nbsp; in:</span></b></p>
-          <p ><b><span
-  style='font-family:Calibri'>a Pacific language only
-            (immersion) </span></b></p>
-          <p ><b><span
-  style='font-family:Calibri'>or: </span></b></p>
-          <p ><b><span
-  style='font-family:Calibri'>in both a Pacific
-            language&nbsp; and English (bilingual) </span></b></p></td>
-        <td width=50 rowspan=2 bgcolor="#D9D9D9"><p ><span style='font-family:Calibri;
-  '>Level 1</span></p>
-          <p ><span style='font-family:Calibri;
-  '>(81-100%)</span></p></td>
+        <td width=93 rowspan=8 bgcolor="#D9D9D9"><b>Pacific Medium Education:</b>
+          <b>Students are taught
+            curriculum subjects (other than a Pacific language)&nbsp; in:</b>
+          <b>a Pacific language only
+            (immersion) </b>
+          <b>or: </b>
+          <b>in both a Pacific
+        language&nbsp; and English (bilingual) </b></td>
+        <td width=50 rowspan=2 bgcolor="#D9D9D9">Level 1
+        (81-100%)</td>
         <td width=113 rowspan=2 bgcolor="
-  #D9D9D9"><p  align=center style='text-align:center'><span lang=EN-GB
-  style='font-family:Calibri;'>Curriculum <b>taught in a Pacific Language</b> for
-            more than 20 and up to 25 hours per week</span></p></td>
-        <td width=106 bgcolor="#D9D9D9"><p  align=center style='text-align:center'><span lang=EN-GB
-  style='font-family:Calibri;'>Total
-            number of students</span></p></td>
+  #D9D9D9">Curriculum <b>taught in a Pacific Language</b> for
+        more than 20 and up to 25 hours per week</td>
+        <td width=106 bgcolor="#D9D9D9">Total
+        number of students</td>
         <td width=25>{{year1.level1Total}}</td>
         <td width=25>{{year2.level1Total}}</td>
         <td width=25>{{year3.level1Total}}</td>
@@ -85,9 +96,8 @@ lang=EN-GB style='font-family:Calibri;'>Students are counted ONCE only at their 
         <td width=34>{{total.level1Total}}</td>
       </tr>
       <tr>
-        <td width=106 bgcolor="#D9D9D9"><p  align=center style='text-align:center'><span lang=EN-GB
-  style='font-family:Calibri;'>Number
-            of Pacific peoples students (included above)</span></p></td>
+        <td width=106 bgcolor="#D9D9D9">Number
+        of Pacific peoples students (included above)</td>
         <td width=25>{{year1.level1Pacific}}</td>
         <td width=25>{{year2.level1Pacific}}</td>
         <td width=25>{{year3.level1Pacific}}</td>
@@ -107,16 +117,12 @@ lang=EN-GB style='font-family:Calibri;'>Students are counted ONCE only at their 
       </tr>
       <tr>
         <td width=50 rowspan=2 bgcolor="
-  #D9D9D9"><p ><span style='font-family:Calibri;
-  '>Level 2</span></p>
-          <p ><span style='font-family:Calibri;
-  '>(51-80%)</span></p></td>
-        <td width=113 rowspan=2 bgcolor="#D9D9D9"><p  align=center style='text-align:center'><span lang=EN-GB
-  style='font-family:Calibri;'>Curriculum <b>taught in a Pacific Language</b> for
-            more than 12.5 and up to 20 hours per week</span></p></td>
-        <td width=106 bgcolor="#D9D9D9"><p  align=center style='text-align:center'><span lang=EN-GB
-  style='font-family:Calibri;'>Total
-            number of students</span></p></td>
+  #D9D9D9">Level 2
+        (51-80%)</td>
+        <td width=113 rowspan=2 bgcolor="#D9D9D9">Curriculum <b>taught in a Pacific Language</b> for
+        more than 12.5 and up to 20 hours per week</td>
+        <td width=106 bgcolor="#D9D9D9">Total
+        number of students</td>
         <td width=25>{{year1.level2Total}}</td>
         <td width=25>{{year2.level2Total}}</td>
         <td width=25>{{year3.level2Total}}</td>
@@ -135,9 +141,8 @@ lang=EN-GB style='font-family:Calibri;'>Students are counted ONCE only at their 
         <td width=34>{{total.level2Total}}</td>
       </tr>
       <tr>
-        <td width=106 bgcolor="#D9D9D9"><p  align=center style='text-align:center'><span lang=EN-GB
-  style='font-family:Calibri;'>Number
-            of Pacific peoples students (included above)</span></p></td>
+        <td width=106 bgcolor="#D9D9D9">Number
+        of Pacific peoples students (included above)</td>
         <td width=25>{{year1.level2Pacific}}</td>
         <td width=25>{{year2.level2Pacific}}</td>
         <td width=25>{{year3.level2Pacific}}</td>
@@ -157,16 +162,12 @@ lang=EN-GB style='font-family:Calibri;'>Students are counted ONCE only at their 
       </tr>
       <tr>
         <td width=50 rowspan=2 bgcolor="
-  #D9D9D9"><p ><span style='font-family:Calibri;
-  '>Level 3</span></p>
-          <p ><span style='font-family:Calibri;
-  '>(31-50%)</span></p></td>
-        <td width=113 rowspan=2 bgcolor="#D9D9D9"><p  align=center style='text-align:center'><span lang=EN-GB
-  style='font-family:Calibri;'>Curriculum <b>taught in a Pacific Language</b> for
-            more than 7.5 and up to 12.5 hours per week</span></p></td>
-        <td width=106 bgcolor="#D9D9D9"><p  align=center style='text-align:center'><span lang=EN-GB
-  style='font-family:Calibri;'>Total
-            number of students</span></p></td>
+  #D9D9D9">Level 3
+        (31-50%)</td>
+        <td width=113 rowspan=2 bgcolor="#D9D9D9">Curriculum <b>taught in a Pacific Language</b> for
+        more than 7.5 and up to 12.5 hours per week</td>
+        <td width=106 bgcolor="#D9D9D9">Total
+        number of students</td>
         <td width=25>{{year1.level3Total}}</td>
         <td width=25>{{year2.level3Total}}</td>
         <td width=25>{{year3.level3Total}}</td>
@@ -185,9 +186,8 @@ lang=EN-GB style='font-family:Calibri;'>Students are counted ONCE only at their 
         <td width=34>{{total.level3Total}}</td>
       </tr>
       <tr>
-        <td width=106 bgcolor="#D9D9D9"><p  align=center style='text-align:center'><span lang=EN-GB
-  style='font-family:Calibri;'>Number
-            of Pacific peoples students (included above)</span></p></td>
+        <td width=106 bgcolor="#D9D9D9">Number
+        of Pacific peoples students (included above)</td>
         <td width=25>{{year1.level3Pacific}}</td>
         <td width=25>{{year2.level3Pacific}}</td>
         <td width=25>{{year3.level3Pacific}}</td>
@@ -206,17 +206,13 @@ lang=EN-GB style='font-family:Calibri;'>Students are counted ONCE only at their 
         <td width=34>{{total.level3Pacific}}</td>
       </tr>
       <tr>
-        <td width=50 rowspan=2 bgcolor="#D9D9D9"><p  align=center style='text-align:center'><span lang=EN-GB
-  style='font-family:Calibri;'>Level 4</span></p>
-          <p  align=center style='text-align:center'><span lang=EN-GB
-  style='font-family:Calibri;'>(12-30%)</span></p></td>
+        <td width=50 rowspan=2 bgcolor="#D9D9D9">Level 4
+        (12-30%)</td>
         <td width=113 rowspan=2 bgcolor="
-  #D9D9D9"><p  align=center style='text-align:center'><span lang=EN-GB
-  style='font-family:Calibri;'>Curriculum <b>taught in a Pacific Language</b> for
-            more than 3 and up to 7.5 hours per week</span></p></td>
-        <td width=106 bgcolor="#D9D9D9"><p  align=center style='text-align:center'><span lang=EN-GB
-  style='font-family:Calibri;'>Total
-            number of students</span></p></td>
+  #D9D9D9">Curriculum <b>taught in a Pacific Language</b> for
+        more than 3 and up to 7.5 hours per week</td>
+        <td width=106 bgcolor="#D9D9D9">Total
+        number of students</td>
         <td width=25>{{year1.level4Total}}</td>
         <td width=25>{{year2.level4Total}}</td>
         <td width=25>{{year3.level4Total}}</td>
@@ -235,9 +231,8 @@ lang=EN-GB style='font-family:Calibri;'>Students are counted ONCE only at their 
         <td width=34>{{total.level4Total}}</td>
       </tr>
       <tr>
-        <td width=106 bgcolor="#D9D9D9"><p  align=center style='text-align:center'><span lang=EN-GB
-  style='font-family:Calibri;'>Number
-            of Pacific peoples students (included above)</span></p></td>
+        <td width=106 bgcolor="#D9D9D9">Number
+        of Pacific peoples students (included above)</td>
         <td width=25>{{year1.level4Pacific}}</td>
         <td width=25>{{year2.level4Pacific}}</td>
         <td width=25>{{year3.level4Pacific}}</td>
@@ -279,8 +274,8 @@ lang=EN-GB style='font-family:Calibri;'>Students are counted ONCE only at their 
       </tr>
       <tr>
         <td width=363 colspan=4 bgcolor="
-  #D9D9D9"><p  align=center style='text-align:center'><b><span lang=EN-GB style='font-family:Calibri;'>Total number of students taught a
-            Pacific Language</span></b></p></td>
+  #D9D9D9"><b>Total number of students taught a
+        Pacific Language</b></td>
         <td width=25>{{year1.total}}</td>
         <td width=25>{{year2.total}}</td>
         <td width=25>{{year3.total}}</td>
@@ -298,31 +293,8 @@ lang=EN-GB style='font-family:Calibri;'>Students are counted ONCE only at their 
         <td width=25>{{year15.total}}</td>
         <td width=34>{{total.total}}</td>
       </tr>
-        <tr style='page-break-inside:avoid;
-  height:22.0pt;' style='page-break-inside:avoid !msorm;
-  height:22.0pt !msorm'>
-      <td width=93><p ><span lang=EN-GB
-  style='font-family:Calibri;'>SMS Name: {{smsName}}</span></p></td>
-        <td width=163 colspan=2><p  align=center style='text-align:center'><span
-  lang=EN-GB style='font-family:Calibri;'>SMS Version: {{smsVersion}}</span></p></td>
-        <td width=106>&nbsp;</td>
-        <td width=25>&nbsp;</td>
-        <td width=25>&nbsp;</td>
-        <td width=25>&nbsp;</td>
-        <td width=25>&nbsp;</td>
-        <td width=25>&nbsp;</td>
-        <td width=25>&nbsp;</td>
-        <td width=25>&nbsp;</td>
-        <td width=25>&nbsp;</td>
-        <td width=25>&nbsp;</td>
-        <td width=25>&nbsp;</td>
-        <td width=25>&nbsp;</td>
-        <td width=25>&nbsp;</td>
-        <td width=25>&nbsp;</td>
-        <td width=25>&nbsp;</td>
-        <td width=25>&nbsp;</td>
-        <td width=34><p ><span lang=EN-GB
-  style='font-family:Calibri;'>Date: {{dateTime}}</span></p></td>
-      </tr>
-    </table>
-  </div>
+    
+  
+  </table>
+</body>
+</html>

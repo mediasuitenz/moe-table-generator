@@ -297,7 +297,6 @@ class M3Table {
 
     $nzdt = new DateTimeZone('Pacific/Auckland');
     $now = new DateTime('now', $nzdt);
-
     $handlebarsEngine = new Handlebars;
     $template = file_get_contents(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'templates' .
       DIRECTORY_SEPARATOR . 'tableM3.html');
