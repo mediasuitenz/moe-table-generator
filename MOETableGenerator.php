@@ -105,6 +105,8 @@ class MOETableGenerator {
     $fullAuditFileName = $moeDir . DIRECTORY_SEPARATOR . 'FullSchoolAuditTable.csv';
     FullSchoolAuditTable::writeCsv($fullSchoolAuditData, $schoolName, $schoolNumber, $cutoffDate, $fullAuditFileName);
 
+    $maoriLanguageAuditHtml = MaoriLanguageAuditTable::generate($students, $cutoffDate);
+    $rollReturnTables .= $maoriLanguageAuditHtml;
     return $rollReturnTables;
   }
 

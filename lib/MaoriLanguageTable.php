@@ -20,28 +20,32 @@ class MaoriLanguageTable {
    */
   public static function generate($smsName, $smsVersion, $schoolName, $schoolNumber, $cutoff, $students, $month) {
 
-    $rows = array();
+    $highestLevelMaori = self::getTotalsData($students, $cutoff);
+    $highestLevelMaori['smsName'] = $smsName;
+    $highestLevelMaori['smsVersion'] = $smsVersion;
+    $highestLevelMaori['schoolName'] = $schoolName;
+    $highestLevelMaori['schoolNumber'] = $schoolNumber;
+    $nzdt = new DateTimeZone('Pacific/Auckland');
+    $now = new DateTime('now', $nzdt);
+    $highestLevelMaori['datePrinted'] = $now->format('Y-m-d');
+    $highestLevelMaori['dateTime'] = $now->format('Y-m-d H:i');
 
-    $studentFilter = function($cutoff, $student) {
-      // Student TYPE in [EX, RA, AD, RE, TPREOM, TPRAOM]
-      // and MĀORI=not Null
-      // Exclusions Students with STP in (1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22)
-      $allowedTypes = ['EX', 'RA', 'AD', 'RE', 'TPREOM', 'TPRAOM'];
-      $excludedStp = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22];
-      
-      $indices = MOEIndices::getIndices();
+    $handlebarsEngine = new Handlebars;
 
-      $nzdt = new DateTimeZone('Pacific/Auckland');
-      $collectionDate = new DateTime($cutoff, $nzdt);
-      $startDate = new DateTime($student[$indices['FIRST ATTENDANCE']], $nzdt);
-      $lastAttendance = empty($student[$indices['LAST ATTENDANCE']]) ? null : new DateTime($student[$indices['LAST ATTENDANCE']], $nzdt);
-      return (in_array($student[$indices['TYPE']], $allowedTypes) &&
-        !in_array($student[$indices['STP']], $excludedStp) &&
-        !empty($student[$indices['MAORI']]) &&
-        $startDate->getTimestamp() <= $collectionDate->getTimestamp() &&
-        (is_null($lastAttendance) || $lastAttendance->getTimestamp() >= $collectionDate->getTimestamp()));
-    };
+    $templatePath = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR;
+    if ($month === 'M')  {
+      $templatePath .= 'tableM4.html';
+    } else if ($month === 'J') {
+      $templatePath .= 'tableJ7.html';
+    }
+    $template = file_get_contents($templatePath);
+    return $handlebarsEngine->render(
+      $template,
+      $highestLevelMaori
+    );
+  }
 
+  public static function getTotalsData($students, $cutoff) {
     $m4Columns = array(
       'MLL1',
       'MLL2',
@@ -58,18 +62,29 @@ class MaoriLanguageTable {
     foreach($m4Columns as $column) {
       $highestLevelMaori[$column] = array(
         'total' => array('total'=>0),
-        'maori' => array('total'=>0)
+        'maori' => array('total'=>0),
+        'nonMaori' => array('total'=>0)
       );
-      for ($i = 0; $i <= 15; $i++) {
+      for ($i = 1; $i <= 15; $i++) {
         $highestLevelMaori[$column]['total'][$i] = 0;
         $highestLevelMaori[$column]['maori'][$i] = 0;
+        $highestLevelMaori[$column]['nonMaori'][$i] = 0;
       }
+    }
+    //Totals by year
+    $highestLevelMaori['totalsByYear'] = array();
+    for ($i = 1; $i <= 15; $i++) {
+      $highestLevelMaori['totalsByYear'][$i] = array(
+        'maori' => 0,
+        'nonMaori' => 0,
+        'total' => 0
+      );
     }
 
     $indices = MOEIndices::getIndices();
 
     foreach($students as $student) {
-      if ($studentFilter($cutoff, $student)) {
+      if (self::studentFilter($student, $cutoff)) {
         $yearLevel = $student[16];
         //Column was being re-used here from last loop
         $column = null;
@@ -105,10 +120,19 @@ class MaoriLanguageTable {
           $student[$indices['ETHNIC3']] == '211') {
           $highestLevelMaori[$column]['maori'][$yearLevel]++;
           $highestLevelMaori[$column]['maori']['total']++;
+
+          $highestLevelMaori['totalsByYear'][$yearLevel]['maori']++;
+        } else {
+          $highestLevelMaori[$column]['nonMaori'][$yearLevel]++;
+          $highestLevelMaori[$column]['nonMaori']['total']++;
+
+          $highestLevelMaori['totalsByYear'][$yearLevel]['nonMaori']++;
         }
         //All students regardless of race 
         $highestLevelMaori[$column]['total'][$yearLevel]++;
         $highestLevelMaori[$column]['total']['total']++;
+
+        $highestLevelMaori['totalsByYear'][$yearLevel]['total']++;
       }
     }
 
@@ -127,27 +151,34 @@ class MaoriLanguageTable {
     }
 
     $highestLevelMaori['totals']['total'] = array_sum($highestLevelMaori['totals']);
-    $highestLevelMaori['smsName'] = $smsName;
-    $highestLevelMaori['smsVersion'] = $smsVersion;
-    $highestLevelMaori['schoolName'] = $schoolName;
-    $highestLevelMaori['schoolNumber'] = $schoolNumber;
+
+    return $highestLevelMaori;
+  }
+
+  public static function studentFilter($student, $cutoff) {
+    // Student TYPE in [EX, RA, AD, RE, TPREOM, TPRAOM]
+    // and MĀORI=not Null
+    // Exclusions Students with STP in (1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22)
+    // And student attending on cutoff date
+    $allowedTypes = ['EX', 'RA', 'AD', 'RE', 'TPREOM', 'TPRAOM'];
+    $excludedStp = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22];
+
+    $indices = MOEIndices::getIndices();
+
     $nzdt = new DateTimeZone('Pacific/Auckland');
-    $now = new DateTime('now', $nzdt);
-    $highestLevelMaori['datePrinted'] = $now->format('Y-m-d');
-    $highestLevelMaori['dateTime'] = $now->format('Y-m-d H:i');
+    $collectionDate = new DateTime($cutoff, $nzdt);
+    $startDate = new DateTime($student[$indices['FIRST ATTENDANCE']], $nzdt);
+    $lastAttendance = empty($student[$indices['LAST ATTENDANCE']]) ? null : new DateTime($student[$indices['LAST ATTENDANCE']], $nzdt);
 
-    $handlebarsEngine = new Handlebars;
 
-    $templatePath = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR;
-    if ($month === 'M')  {
-      $templatePath .= 'tableM4.html';
-    } else if ($month === 'J') {
-      $templatePath .= 'tableJ7.html';
-    }
-    $template = file_get_contents($templatePath);
-    return $handlebarsEngine->render(
-      $template,
-      $highestLevelMaori
+    $validType = in_array($student[$indices['TYPE']], $allowedTypes);
+    $validStp = !in_array($student[$indices['STP']], $excludedStp);
+    $isMaoriLanguageStudent = !empty($student[$indices['MAORI']]);
+    $startedBeforeCutoff = $startDate->getTimestamp() <= $collectionDate->getTimestamp();
+    $finishedAfterCutoff = (is_null($lastAttendance) || $lastAttendance->getTimestamp() >= $collectionDate->getTimestamp());
+
+    return ($validType && $validStp && $isMaoriLanguageStudent &&
+      $startedBeforeCutoff && $finishedAfterCutoff
     );
   }
 
