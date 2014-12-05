@@ -159,6 +159,7 @@ class MaoriLanguageTable {
     // Student TYPE in [EX, RA, AD, RE, TPREOM, TPRAOM]
     // and MĀORI=not Null
     // Exclusions Students with STP in (1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22)
+    // And student attending on cutoff date
     $allowedTypes = ['EX', 'RA', 'AD', 'RE', 'TPREOM', 'TPRAOM'];
     $excludedStp = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22];
 
@@ -168,11 +169,17 @@ class MaoriLanguageTable {
     $collectionDate = new DateTime($cutoff, $nzdt);
     $startDate = new DateTime($student[$indices['FIRST ATTENDANCE']], $nzdt);
     $lastAttendance = empty($student[$indices['LAST ATTENDANCE']]) ? null : new DateTime($student[$indices['LAST ATTENDANCE']], $nzdt);
-    return (in_array($student[$indices['TYPE']], $allowedTypes) &&
-      !in_array($student[$indices['STP']], $excludedStp) &&
-      !empty($student[$indices['MAORI']]) &&
-      $startDate->getTimestamp() <= $collectionDate->getTimestamp() &&
-      (is_null($lastAttendance) || $lastAttendance->getTimestamp() >= $collectionDate->getTimestamp()));
+
+
+    $validType = in_array($student[$indices['TYPE']], $allowedTypes);
+    $validStp = !in_array($student[$indices['STP']], $excludedStp);
+    $isMaoriLanguageStudent = !empty($student[$indices['MAORI']]);
+    $startedBeforeCutoff = $startDate->getTimestamp() <= $collectionDate->getTimestamp();
+    $finishedAfterCutoff = (is_null($lastAttendance) || $lastAttendance->getTimestamp() >= $collectionDate->getTimestamp());
+
+    return ($validType && $validStp && $isMaoriLanguageStudent &&
+      $startedBeforeCutoff && $finishedAfterCutoff
+    );
   }
 
 }
