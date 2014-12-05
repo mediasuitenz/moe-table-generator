@@ -91,9 +91,5 @@ class MaoriLanguageAuditTable {
         'maoriLanguageTotals' => $maoriLanguageTotals
       )
     );
-
-    return '';
-
   }
-
 }
